@@ -51,7 +51,3 @@ ignore = [
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
-
-[tool.pyrefly]
-project-includes = ['src/**/*.py']
-project-excludes = ['**/.venv/**', '**/tests/**']
