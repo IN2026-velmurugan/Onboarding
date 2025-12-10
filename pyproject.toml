@@ -1,0 +1,57 @@
+[tool.poetry]
+name = "python-starter-repo"
+version = "0.1.0"
+description = ""
+authors = ["Soliton"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.12.2"
+pyrefly = "^0.22.2"
+pre-commit = "^4.2.0"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+include= [
+    "src/**/*.py",
+]
+exclude = [
+    "**/tests/**",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes,
+    "B",  # flake8-bugbear
+    "I",  # issort
+    "C",  # pylint convention
+    "A",  # flake8-builtins
+    "N",  # pep8-naming
+    "ASYNC",  # flake8-async
+    "C4",  # flake8-comprehensions
+    "D",  # pydocstyle
+]
+ignore = [
+    "W191",  # indentation with tabs
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pyrefly]
+project-includes = ['src/**/*.py']
+project-excludes = ['**/.venv/**', '**/tests/**']
