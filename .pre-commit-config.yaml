@@ -21,4 +21,4 @@ repos:
       - id: ruff-check
         args: [src, --fix]
       - id: ruff-format
-        args: [src, --fix]
+        args: [src]
