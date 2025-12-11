@@ -26,23 +26,28 @@ jobs:
 
     # Set up the python environment
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
+        check-latest: true
 
-    # Install the poetry to get the required dependencies
-    - name: Install Dependencies
+    - name: Install Poetry
       run: |
-        pip install poetry
-        poetry install --no-root
+          curl -sSL https://install.python-poetry.org | python -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
       shell: bash
 
-    # Checking for errors and warnings in the code with Ruff and Pyrefly
-    - name: Lint Code Base with Ruff and Pyrefly
-      run: bash .github/workflows/run_python_linter.sh
+    - name: Install project dependencies (including dev)
+      run: |
+          poetry --version
+          # install project deps + dev deps
+          poetry install --no-interaction --no-ansi
       shell: bash
 
-    # Running test cases with code coverage
-    - name: Run Test Cases and Code Coverage with PyTest
-      run: bash .github/workflows/run_python_pytest.sh
+      -name: Run Linters (Black + MyPy)
+      run: bash scripts/run_python_linter.sh
+      shell: bash
+
+      -name: Run Test Cases and Coverage (PyTest)
+      run: bash scripts/run_python_pytest.sh
       shell: bash
