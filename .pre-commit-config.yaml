@@ -14,4 +14,4 @@ repos:
     rev: 24.10.0   # ← use the latest Black release
     hooks:
       - id: black
-        language_version: python3.14   # or python3.10, python3.12 etc.
+        language_version: python3.10   # or python3.10, python3.12 etc.
