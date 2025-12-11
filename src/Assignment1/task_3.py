@@ -2,14 +2,12 @@
 
 This module contains functions for:
 - Classify a number as Positive, Negative or Zero
-- to factorial of a number
+- to fid the factorial of a number
 """
 
 
 def classify_number(number: int):
-    """_summary_.
-
-    Classify the number as Positive, Negative or Zero
+    """Classify the number as Positive, Negative or Zero.
 
     Args:
         number (int): Number to be classified
@@ -26,9 +24,7 @@ def classify_number(number: int):
 
 
 def factorial(n: int):
-    """_summary_.
-
-    Calculate the factorial of a number
+    """Calculate the factorial of a number.
 
     Args:
         n (int): Number to calculate factorial for
@@ -42,6 +38,7 @@ def factorial(n: int):
     return result
 
 
-print("Number classification:", classify_number(int(input("Enter a number to classify:\n"))))
+if __name__ == "__main__":
+    print("Number classification:", classify_number(int(input("Enter a number to classify:\n"))))
 
-print("Factorial:", factorial(int(input("Enter a number to calculate factorial:\n"))))
+    print("Factorial:", factorial(int(input("Enter a number to calculate factorial:\n"))))

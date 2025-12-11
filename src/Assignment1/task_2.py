@@ -1,6 +1,7 @@
 """Task 2.
 
 This module contains functions for:
+
 - filtering the primes from a list of numbers
 - inverting key value pairs in a dictionary
 """
@@ -9,14 +10,14 @@ import math
 from typing import Any, Dict, List
 
 
-def filter_primes(numbers: List[int]):
-    """_summary_.
+def filter_primes(numbers: List[int]) -> List[int]:
+    """Filters prime numbers from the given list.
 
     Args:
-        numbers (List[int]): _description_
+        numbers (List[int]): List of numbers to be filtered
 
     Returns:
-        _type_: _description_
+        List[int]: Filtered list containing only prime numbers
     """
     primes: List[int] = []
     for num in numbers:
@@ -30,10 +31,7 @@ def filter_primes(numbers: List[int]):
 
 
 def invert_dict(input_dict: Dict[Any, Any]):
-    """_summary_.
-
-    dictionary where each unique value in the input becomes a key in
-    the output that maps to a list of corresponding keys from the input.
+    """Invert a dictionary so each unique value becomes a key mapping to a list of original keys.
 
     Args:
         input_dict (Dict[Any, Any]): Dictionary input
@@ -43,12 +41,14 @@ def invert_dict(input_dict: Dict[Any, Any]):
     """
     inverted_dict: Dict[Any, Any] = {}
     for key, value in input_dict.items():
-        if value not in inverted_dict.keys():
-            inverted_dict[value] = key
+        if value not in inverted_dict:
+            inverted_dict[value] = []
+        inverted_dict[value].append(key)
     return inverted_dict
 
 
-print("Filtered Primes:", filter_primes([10, 15, 3, 7, 19, 20, 23, 24, 29]))
+if __name__ == "__main__":
+    print("Filtered Primes:", filter_primes([10, 15, 3, 7, 19, 20, 23, 24, 29]))
 
-sample_dict = {"a": 1, "b": 2, "c": 3, "d": 2}
-print("Inverted dictionary:", invert_dict(sample_dict))
+    sample_dict = {"a": 1, "b": 2, "c": 3, "d": 2}
+    print("Inverted dictionary:", invert_dict(sample_dict))
