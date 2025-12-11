@@ -45,9 +45,9 @@ jobs:
       shell: bash
 
       -name: Run Linters (Black + MyPy)
-      run: bash scripts/run_python_linter.sh
+      run: bash .github/workflows/run_python_linter.sh
       shell: bash
 
       -name: Run Test Cases and Coverage (PyTest)
-      run: bash scripts/run_python_pytest.sh
+      run: bash .github/workflows/run_python_pytest.sh
       shell: bash
