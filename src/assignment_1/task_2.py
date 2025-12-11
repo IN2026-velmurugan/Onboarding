@@ -1,9 +1,6 @@
-"""Task 2.
-
-This module contains functions for:
-
-- filtering the primes from a list of numbers
-- inverting key value pairs in a dictionary
+"""This module contains functions to
+filtering the primes from a list of numbers,
+inverting key value pairs in a dictionary
 """
 
 import math

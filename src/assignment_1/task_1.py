@@ -1,10 +1,7 @@
-"""Task 1.
-
-This module contains functions for:.
-
-- reverse the words in a sentence
-- find roots of a quadratic equation
-- evaluate boolean conditions
+"""This module contains functions to
+reverse the words in a sentence,
+find roots of a quadratic equation,
+evaluate boolean conditions
 """
 
 import math
