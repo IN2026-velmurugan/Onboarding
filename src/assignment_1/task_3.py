@@ -1,6 +1,4 @@
-"""Task 3.
-
-This module contains functions for:
+"""This module contains functions for:
 - Classify a number as Positive, Negative or Zero
 - to fid the factorial of a number
 """
@@ -39,6 +37,11 @@ def factorial(n: int):
 
 
 if __name__ == "__main__":
-    print("Number classification:", classify_number(int(input("Enter a number to classify:\n"))))
+    print(
+        "Number classification:",
+        classify_number(int(input("Enter a number to classify:\n"))),
+    )
 
-    print("Factorial:", factorial(int(input("Enter a number to calculate factorial:\n"))))
+    print(
+        "Factorial:", factorial(int(input("Enter a number to calculate factorial:\n")))
+    )

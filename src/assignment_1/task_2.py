@@ -31,7 +31,7 @@ def filter_primes(numbers: List[int]) -> List[int]:
 
 
 def invert_dict(input_dict: Dict[Any, Any]):
-    """Invert a dictionary so each unique value becomes a key mapping to a list of original keys.
+    """Dictionary where each unique value in the input becomes a key in the output that maps to a list of corresponding keys from the input.
 
     Args:
         input_dict (Dict[Any, Any]): Dictionary input
