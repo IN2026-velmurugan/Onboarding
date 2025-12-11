@@ -22,7 +22,14 @@ def classify_number(number: int):
 
 
 def factorial(n: int):
+    """Calculate the factorial of a number.
 
+    Args:
+        n (int): Number to calculate factorial for
+
+    Returns:
+        int: Factorial of the number
+    """
     result = 1
     for i in range(1, n + 1):
         result *= i
