@@ -1,4 +1,5 @@
-"""This module contains functions to
+"""This module contains functions to.
+
 reverse the words in a sentence,
 find roots of a quadratic equation,
 evaluate boolean conditions

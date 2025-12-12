@@ -1,6 +1,7 @@
-"""This module contains functions to
-Classify a number as Positive, Negative or Zero,
-finding the factorial of a number
+"""This module contains functions.
+
+to Classify a number as Positive,
+Negative or Zero, finding the factorial of a number.
 """
 
 
@@ -43,5 +44,6 @@ if __name__ == "__main__":
     )
 
     print(
-        "Factorial:", factorial(int(input("Enter a number to calculate factorial:\n")))
+        "Factorial:",
+        factorial(int(input("Enter a number to calculate factorial:\n"))),
     )

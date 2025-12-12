@@ -25,9 +25,9 @@ repos:
         types: [python]
         pass_filenames: false
 
-      - id: ni-python-styleguide-format
-        name: NI Python Styleguide Format (nps format)
-        entry: poetry run ni-python-styleguide format
+      - id: ni-python-styleguide-fix
+        name: NI Python Styleguide Fix (nps fix)
+        entry: poetry run ni-python-styleguide fix
         language: system
         types: [python]
         pass_filenames: false

@@ -1,4 +1,7 @@
-from typing import Any, Tuple
+from typing import (  # noqa: D100 - Missing docstring in public module (auto-generated noqa)
+    Any,
+    Tuple,
+)
 
 
 def swap_variable_using_third_variable(a: Any, b: Any) -> Tuple[Any, Any]:

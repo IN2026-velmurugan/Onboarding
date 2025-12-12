@@ -1,4 +1,4 @@
-string_1 = "Hello, this is a test string for checking immutability."
+string_1 = "Hello, this is a test string for checking immutability."  # noqa: D100 - Missing docstring in public module (auto-generated noqa)
 
 try:
     string_1[0] = "h"

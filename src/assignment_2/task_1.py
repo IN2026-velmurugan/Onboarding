@@ -1,3 +1,6 @@
+"""Module with only variables.
+"""
+
 int_variable = 10
 float_variable = 20.5
 string_variable = "Hello, World!"
