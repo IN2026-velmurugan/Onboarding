@@ -80,8 +80,7 @@ def postfix_conversion(expression: str) -> List[str]:
             while stack and stack[-1] != "(":
                 postfix_expression.append(stack.pop())
             stack.pop()
-            idx = expression.index(")")
-            expression = expression[idx + 1 :]
+            expression = expression[expression.index(")") + 1 :]
         elif char == "(":
             stack.append(char)
             expression = expression[1:]
