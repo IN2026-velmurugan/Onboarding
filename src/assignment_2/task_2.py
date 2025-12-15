@@ -1,15 +1,17 @@
-from typing import (  # noqa: D100 - Missing docstring in public module (auto-generated noqa)
+"""This module contains functions to swap variables using different methods."""
+
+from typing import (
     Any,
     Tuple,
 )
 
 
 def swap_variable_using_third_variable(a: Any, b: Any) -> Tuple[Any, Any]:
-    """To swap variable using third temporary variable.
+    """Swap variable using third temporary variable.
 
     Args:
-        a(Any) : Variable 1
-        b(Any) : Variable 2
+        a : Variable 1
+        b : Variable 2
 
     Returns:
         Tuple[Any, Any]: swapped variables
@@ -23,7 +25,7 @@ def swap_variable_using_third_variable(a: Any, b: Any) -> Tuple[Any, Any]:
 def swap_variable_without_third_variable(
     a: int | float, b: int | float
 ) -> Tuple[int | float, int | float]:
-    """To swap variable without using third temporary variable for numeric values alone.
+    """Swap variable without using third temporary variable for numeric values alone.
 
     Args:
         a(int | float) : Variable 1
@@ -46,11 +48,11 @@ def swap_variable_without_third_variable(
 
 
 def swap_variable_using_tuple_unpacking(a: Any, b: Any) -> Tuple[Any, Any]:
-    """To swap variable without using third temporary variable.
+    """Swap variable without using third temporary variable.
 
     Args:
-        a(Any) : Variable 1
-        b(Any) : Variable 2
+        a : Variable 1
+        b : Variable 2
 
     Returns:
         Tuple[Any, Any]: swapped variables
@@ -60,17 +62,28 @@ def swap_variable_using_tuple_unpacking(a: Any, b: Any) -> Tuple[Any, Any]:
 
 
 if __name__ == "__main__":
-    x = 5
-    y = 10
-    swap_variable_without_third_variable(x, y)
+    x: int | float = 5
+    y: int | float = 10
+    x, y = swap_variable_without_third_variable(x, y)
     print(f"After swapping using without third variable: x = {x}, y = {y}")
 
     a = "asd"
     b = "qwe"
 
-    swap_variable_using_tuple_unpacking(a, b)
-    print("After swapping using tuple unpacking: a ={a} , b ={b} ")
-    try:
-        swap_variable_without_third_variable(a, b)
-    except TypeError as e:
-        print(e)
+    a, b = swap_variable_using_tuple_unpacking(a, b)
+    print(f"After swapping using tuple unpacking: a = {a} , b = {b} ")
+    while True:
+        a, b = input("Enter two values to swap separated by space: ").split()
+        try:
+            a, b = swap_variable_using_tuple_unpacking(a, b)
+            print(f"After swapping without third variable: a = {a} , b = {b} ")
+            flag = int(input("Do you want to continue? (1 for Yes / 0 for No): "))
+            if flag == 0:
+                break
+        except TypeError as e:
+            print(e, "Please enter numeric values.")
+    # this part is to show that error is thrown for non numeric values
+    # try:
+    #     swap_variable_without_third_variable(a, b)
+    # except TypeError as e:
+    #     print(e)
