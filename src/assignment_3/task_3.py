@@ -1,16 +1,28 @@
+"""Module to navigate through the directory and count files."""
+
 import os
 
-def find_file_count(path : str) :
-    files = os.listdir(path)
-    for item in files:
-        if (os.path.isdir(item)):
-            find_file_count(item):
-            
-    return len(os.listdir(path))
 
-def system_navigator(path : str):
-    files = os.listdir(path)
-    print(files)
+def system_navigator(path: str) -> int:
+    """To navigate through the directory and count files.
+
+    Args:
+        path (str): Parent file directory path.
+
+    Returns:
+        int: Count of files.
+    """
+    result = 0
+    for item in os.listdir(path):
+        if os.path.isdir(path + "/" + item):
+            result += system_navigator(path + "/" + item)
+        else:
+            result += 1
+
+    return result
+
 
 if __name__ == "__main__":
-    system_navigator("C:/Users/velmurugan.kl/Desktop/Backend/Assignment")
+    path = input("Enter the path: ")
+    count = system_navigator(path.replace("\\", "/"))
+    print(f"Total number of files: {count}")
