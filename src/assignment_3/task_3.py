@@ -1,9 +1,10 @@
 """Module to navigate through the directory and count files."""
 
 import os
+from pathlib import Path
 
 
-def system_navigator(path: str) -> int:
+def system_navigator_using_os(path: str) -> int:
     """To navigate through the directory and count files.
 
     Args:
@@ -14,8 +15,28 @@ def system_navigator(path: str) -> int:
     """
     result = 0
     for item in os.listdir(path):
-        if os.path.isdir(path + "/" + item):
-            result += system_navigator(path + "/" + item)
+        abs_path = os.path.join(path, item)
+        if os.path.isdir(abs_path):
+            result += system_navigator_using_os(abs_path)
+        else:
+            result += 1
+
+    return result
+
+
+def system_navigator_using_pathlib(path: Path) -> int:
+    """To navigate through the directory and count files.
+
+    Args:
+        path (str): Parent file directory path.
+
+    Returns:
+        int: Count of files.
+    """
+    result = 0
+    for item in list(path.iterdir()):
+        if item.is_dir():
+            result += system_navigator_using_pathlib(item)
         else:
             result += 1
 
@@ -24,5 +45,7 @@ def system_navigator(path: str) -> int:
 
 if __name__ == "__main__":
     path = input("Enter the path: ")
-    count = system_navigator(path.replace("\\", "/"))
-    print(f"Total number of files: {count}")
+    os_count = system_navigator_using_pathlib(Path(path.replace("\\", "/")))
+    path_count = system_navigator_using_os(path.replace("\\", "/"))
+    print(f"Total number of files using os: {os_count}")
+    print(f"Total number of files using pathlib: {os_count}")
