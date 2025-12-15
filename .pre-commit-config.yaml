@@ -10,15 +10,8 @@ repos:
       - id: trailing-whitespace
       - id: detect-private-key
 
-  - repo: https://github.com/facebook/pyrefly
-    rev: 0.22.2
+  - repo: https://github.com/psf/black
+    rev: 24.10.0   # ← use the latest Black release
     hooks:
-      - id: pyrefly-typecheck
-
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.12.2
-    hooks:
-      - id: ruff-check
-        args: [src, --fix]
-      - id: ruff-format
-        args: [src, --fix]
+      - id: black
+        language_version: python3.10   # or python3.10, python3.12 etc.
