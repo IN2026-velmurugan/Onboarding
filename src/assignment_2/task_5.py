@@ -1,9 +1,12 @@
-number_1 = 5  # noqa: D100 - Missing docstring in public module (auto-generated noqa)
+"""This module contains code to demonstrate variable scope in Python."""
+
+number_1 = 5
 
 
-def function():  # noqa: D103 - Missing docstring in public function (auto-generated noqa)
+def function():
+    """Sample function to demonstrate the variable scope."""
     number_1 = 10
-    number_2 = 15  # noqa: F841 - local variable 'number_2' is assigned to but never used (auto-generated noqa)
+    # number_2 = 15
     print("Inside function, number_1 =", number_1)
 
 
@@ -13,7 +16,7 @@ print("After function call, number_1 =", number_1)
 try:
     print(
         "Trying to access number_2 outside function: ",
-        number_2,  # noqa: F821 - undefined name 'number_2' (auto-generated noqa)
+        # number_2,
     )
 except Exception as e:
     print("Error because the local scope cannot be accessed outside scope:", e)

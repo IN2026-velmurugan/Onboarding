@@ -1,6 +1,6 @@
 """This module contains functions.
 
-to filtering the primes from a list of numbers,
+filtering the primes from a list of numbers.
 inverting key value pairs in a dictionary.
 """
 

@@ -1,8 +1,8 @@
 """This module contains functions to.
 
-reverse the words in a sentence,
-find roots of a quadratic equation,
-evaluate boolean conditions
+Reverse the words in a sentence.
+Find roots of a quadratic equation.
+Evaluate boolean conditions.
 """
 
 import math
@@ -13,7 +13,7 @@ def reverse_words(sentence: str = "") -> str:
     """Method to reverse the sentence words.
 
     Args:
-        sentence (str, optional): Sentence to be reversed Defaults to "".
+        sentence (str, optional): Sentence to be reversed, Defaults to "".
 
     Returns:
         str: The sentence with words in reverse order.
@@ -35,10 +35,11 @@ def solve_quad(a: float, b: float, c: float) -> Tuple[float, float] | None:
     if a == 0:
         print("Not a quadratic equation")
         return None
-    dis = math.sqrt(b**2 - 4 * a * c)
-    if dis < 0:
+    discernment = b**2 - 4 * a * c
+    if discernment < 0:
         print("No Real Roots")
         return None
+    dis = math.sqrt(discernment)
     root1 = (-b + dis) / (2 * a)
     root2 = (-b - dis) / (2 * a)
     return (root1, root2)

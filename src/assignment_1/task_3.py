@@ -1,6 +1,6 @@
 """This module contains functions.
 
-to Classify a number as Positive,
+to Classify a number as Positive.
 Negative or Zero, finding the factorial of a number.
 """
 
