@@ -8,7 +8,6 @@ import math
 from typing import Tuple
 
 
-# Task 1
 def reverse_words(sentence: str = "") -> str:
     """Method to reverse the sentence words.
 
