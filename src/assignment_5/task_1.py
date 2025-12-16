@@ -6,6 +6,8 @@ import random
 from pathlib import Path
 from typing import Any, Dict, List, Set
 
+from src.assignment_3.task_4 import json_analyzer
+
 PATH = Path("") / "src" / "assignment_5" / "data.json"
 
 
@@ -67,7 +69,7 @@ if __name__ == "__main__":
         with open(PATH.absolute(), "w") as json_file:
             json.dump(data, json_file)
 
-    json_data = read_json()
+    json_data = json_analyzer(str(PATH.absolute()))
     square_of_primes = list_with_square_of_primes(json_data)
     unique_square_of_primes = set_with_unique_squared_values(square_of_primes)
     print(square_of_primes)
