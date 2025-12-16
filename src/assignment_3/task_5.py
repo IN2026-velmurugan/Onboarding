@@ -122,7 +122,9 @@ def delete_line(condition: Optional[Dict[str, Any]] = None):
 
 
 def database_manager(
-    args: str, data: Optional[Dict[str, Any]] = None, condition: Optional[Dict[str, Any]] = None
+    args: str,
+    data: Optional[Dict[str, Any]] = None,
+    condition: Optional[Dict[str, Any]] = None,
 ):
     """Performs the database operations.
 
