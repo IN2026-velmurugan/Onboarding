@@ -11,7 +11,7 @@ def time_stamp() -> str:
     """Gets the current timestamp.
 
     Returns:
-        str: return the time stamp
+        Return the time stamp
     """
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -153,7 +153,7 @@ def get_json_string() -> Dict[str, Any]:
         ValueError: if the JSON input is not valid.
 
     Returns:
-        Dict[str, Any]: JSON string as Dictionary.
+        JSON string as Dictionary.
     """
     raw_input_str = input("JSON > ")
 

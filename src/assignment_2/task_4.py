@@ -1,4 +1,4 @@
-"""This module contains code to demonstrate immutability of strings and integers in Python."""
+"""This module demonstrates immutability of strings and integers in Python."""
 
 string_1 = "Hello, this is a test string for checking immutability."
 

@@ -1,4 +1,4 @@
-"""This module contains code to demonstrate operator precedence in Python."""
+"""The module evaluates multiple expressions to demonstrate the operator precedence."""
 
 result_1 = 10**2 / 5 + 2 + (3 * 5) - 8
 result_2 = (5 + 3) * 2 - (12 / 4) + 7**2
