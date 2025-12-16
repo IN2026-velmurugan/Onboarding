@@ -17,15 +17,15 @@ def time_stamp() -> str:
 
 
 def create_line(data: Optional[Dict[str, Any]] = None):
-    """Adding the JSON line to the file.
+    """Adds the JSON line to the file.
 
     Args:
-        data (Optional[Dict[str, Any]], optional): JSON data. Defaults to None.
+        data : JSON data. Defaults to None.
 
     Raises:
-        ValueError: If data is not provided.
-        FileNotFoundError: When the file is not found.
-        Exception: Uncaught exception.
+        ValueError : If data is not provided.
+        FileNotFoundError : When the file is not found.
+        Exception : Uncaught exception.
     """
     if data is None:
         raise ValueError("Data must be provided for CREATE operation.")
@@ -44,7 +44,7 @@ def read_lines():
     """Reads and displays the contents of the file.
 
     Raises:
-        FileNotFoundError: When the file is not found.
+        FileNotFoundError : When the file is not found.
     """
     try:
         with open(DB_FILE, "r") as db_file:
@@ -55,11 +55,11 @@ def read_lines():
 
 
 def update_line(data: Optional[Dict[str, Any]] = None, condition: Optional[Dict[str, Any]] = None):
-    """Updating the JSON line.
+    """Updates the JSON line.
 
     Args:
-        data (Optional[Dict[str, Any]], optional): Data to be updated. Defaults to None.
-        condition (Optional[Dict[str, Any]], optional): The line to be updated. Defaults to None.
+        data : Data to be updated. Defaults to None.
+        condition : The line to be updated. Defaults to None.
 
     Raises:
         ValueError: If data is not present
@@ -89,10 +89,10 @@ def update_line(data: Optional[Dict[str, Any]] = None, condition: Optional[Dict[
 
 
 def delete_line(condition: Optional[Dict[str, Any]] = None):
-    """Delete the JSON line.
+    """Deletes the JSON line.
 
     Args:
-        condition (Optional[Dict[str, Any]], optional): The line to be deleted. Defaults to None.
+        condition : The line to be deleted. Defaults to None.
 
     Raises:
         ValueError: If data is not provided.
@@ -126,12 +126,12 @@ def database_manager(
     data: Optional[Dict[str, Any]] = None,
     condition: Optional[Dict[str, Any]] = None,
 ):
-    """Performs the database operations.
+    """Manages the database operation.
 
     Args:
-        args (str): _description_
-        data (Optional[Dict[str, Any]], optional): Data to be updated. Defaults to None.
-        condition (Optional[Dict[str, Any]], optional): The line to be updated. Defaults to None.
+        args : Database argument.
+        data : Data to be updated. Defaults to None.
+        condition : The line to be updated. Defaults to None.
     """
     try:
         if args == "CREATE":

@@ -1,5 +1,4 @@
-"""Module to perform date analytics on a list of dates provided by the user.
-"""
+"""Module to perform date analytics on a list of dates provided by the user."""
 
 from datetime import datetime
 from typing import List, Set, Tuple
@@ -8,13 +7,13 @@ from typing import List, Set, Tuple
 def date_analytics(
     date_list_string: List[str],
 ) -> Tuple[datetime, datetime, Set[datetime]]:
-    """To find the earliest date, latest date and unique dates from a list of dates.
+    """Finds the earliest date, latest date and unique dates from a list of dates.
 
     Args:
-        date_list (List[str]): list of dates in string format YYYY-MM-DD
+        date_list : List of dates in string format YYYY-MM-DD.
 
     Returns:
-        Tuple[datetime, datetime, Set[datetime]]: earliest date, latest date and unique dates
+        Tuple : Earliest date, latest date and unique dates.
     """
     date_list: List[datetime] = []
     for date in date_list_string:
@@ -26,13 +25,13 @@ def date_analytics(
 
 
 def validate_date(date_string: str) -> bool:
-    """To validate date string format YYYY-MM-DD.
+    """Validates the date string format YYYY-MM-DD.
 
     Args:
-        date_string (str): date in string format
+        date_string : date in string format.
 
     Returns:
-        bool: true if valid, false otherwise
+        bool : True if valid, False otherwise.
     """
     try:
         datetime.strptime(date_string, "%Y-%m-%d")
@@ -42,10 +41,10 @@ def validate_date(date_string: str) -> bool:
 
 
 def get_valid_dates() -> List[str]:
-    """To get valid dates from user input until '0' is entered.
+    """Gets valid dates from user input until '0' is entered.
 
     Returns:
-        List[str]: list of valid dates in string format YYYY-MM-DD
+        List: List of valid dates in string format YYYY-MM-DD.
     """
     date: str = ""
     valid_dates: List[str] = []

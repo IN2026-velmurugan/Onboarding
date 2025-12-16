@@ -3,29 +3,25 @@
 from typing import List
 
 
-def operator_precedence(op: str) -> int:
+def operator_precedence(operator: str) -> int:
     """To find the precedence of the operator.
 
     Args:
-        op (str): Operator or parenthesis
+        operator : Operator.
 
     Returns:
-        int: precedence value
+        int: Precedence of the operator passed.
     """
     precedences = {"+": 1, "-": 1, "*": 2, "/": 2, "^": 3}
-    return precedences.get(op, 0)
+    return precedences.get(operator, 0)
 
 
-def evaluate_simple_expression(
-    operand1: float,
-    operand2: float,
-    operator: str,
-) -> float:
-    """To evaluate the simple expression with two operand.
+def evaluate_simple_expression(operand_1: float, operand_2: float, operator: str) -> float:
+    """Evaluates the simple expression with two operand.
 
     Args:
-        operand1 (float): Operand_1
-        operand2 (float): Operand_2
+        operand_1 (float): Operand_1
+        operand_2 (float): Operand_2
         operator (str): Operator
 
     Raises:
@@ -37,15 +33,15 @@ def evaluate_simple_expression(
     """
     try:
         if operator == "+":
-            return operand1 + operand2
+            return operand_1 + operand_2
         elif operator == "-":
-            return operand1 - operand2
+            return operand_1 - operand_2
         elif operator == "*":
-            return operand1 * operand2
+            return operand_1 * operand_2
         elif operator == "/":
-            return operand1 / operand2
+            return operand_1 / operand_2
         elif operator == "^":
-            return operand1**operand2
+            return operand_1**operand_2
         else:
             raise ValueError(f"Unknown operator: {operator}")
     except ZeroDivisionError:
@@ -53,16 +49,16 @@ def evaluate_simple_expression(
 
 
 def postfix_conversion(expression: str) -> List[str]:
-    """To convert the infix expression to post-fix expression.
+    """Converts an infix expression to postfix expression.
 
     Args:
-        expression (str): Infix expression
+        expression : Infix expression.
 
     Raises:
-        ValueError: Raised if the character of the expression is invalid
+        ValueError : Raised if the character of the expression is invalid.
 
     Returns:
-        List[str]: post-fix expression as a list
+        List : postfix expression as a list.
     """
     stack: List[str] = []
     postfix_expression: List[str] = []
@@ -97,17 +93,17 @@ def postfix_conversion(expression: str) -> List[str]:
 
 
 def expression_evaluator(expression: str) -> float:
-    """To evaluate the infix expression.
+    """Evaluates the infix expression.
 
     Args:
-        expression (str): Infix expression
+        expression : Infix expression to be evaluated.
 
     Raises:
-        ValueError: if the expression is invalid
-        ZeroDivisionError: if division by zero is attempted
+        ValueError: If the expression is invalid.
+        ZeroDivisionError: If division by zero is attempted.
 
     Returns:
-        float: value of the expression
+        float: Final value of the expression.
     """
     expression.replace(" ", "")
     postfix: List[str]

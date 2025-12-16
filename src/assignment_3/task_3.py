@@ -5,10 +5,10 @@ from pathlib import Path
 
 
 def system_navigator_using_os(path: str) -> int:
-    """To navigate through the directory and count files.
+    """Navigates through the directory recursively and count files using os library.
 
     Args:
-        path (str): Parent file directory path.
+        path : Parent file directory path.
 
     Returns:
         int: Count of files.
@@ -25,10 +25,10 @@ def system_navigator_using_os(path: str) -> int:
 
 
 def system_navigator_using_pathlib(path: Path) -> int:
-    """To navigate through the directory and count files.
+    """Navigates through the directory recursively and count files using pathlib library.
 
     Args:
-        path (str): Parent file directory path.
+        path : Parent file directory path.
 
     Returns:
         int: Count of files.

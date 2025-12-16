@@ -1,4 +1,4 @@
-"""Module for extracting and flattening JSON files."""
+"""Module extracting and flattening JSON files."""
 
 import json
 from pathlib import Path
@@ -9,11 +9,11 @@ def flatten_nested_json_analyzer(data: Dict[str, Any], parent_key: str = "") -> 
     """Flattens the nested JSON structure into a single-level dictionary.
 
     Args:
-        data (Dict[str, Any]): The nested JSON data.
-        parent_key (str, optional): Parent key. default is "".
+        data : The nested JSON data.
+        parent_key : Parent key. default is "".
 
     Returns:
-        Dict[str, Any]: flatten JSON structure.
+        Dict: Flatten JSON structure.
     """
     flatten_json: Dict[str, Any] = {}
     for key, value in data.items():
@@ -27,17 +27,17 @@ def flatten_nested_json_analyzer(data: Dict[str, Any], parent_key: str = "") -> 
 
 
 def json_analyzer(json_path: str) -> Dict[str, Any]:
-    """Returns the JSON data extracted from the file.
+    """JSON data extracted from the file.
 
     Args:
-        json_path (str): JSON file path.
+        json_path : JSON file path.
 
     Raises:
         FileNotFoundError: If the file does not exist.
         ValueError: If the file contains invalid JSON.
 
     Returns:
-        Dict[str, Any]: Extracted JSON data.
+        Dict: Extracted JSON data.
     """
     path = Path(json_path)
 
