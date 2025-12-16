@@ -10,6 +10,11 @@ repos:
       - id: trailing-whitespace
       - id: detect-private-key
 
+  - repo: https://github.com/psf/black
+    rev: 24.10.0   # ← use the latest Black release
+    hooks:
+      - id: black
+        language_version: python3.10
 
 
   - repo: local
