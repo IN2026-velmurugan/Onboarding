@@ -1,4 +1,4 @@
-"""This module contains code to demonstrate variable scope in Python."""
+"""This module demonstrate variable scope in Python."""
 
 number_1 = 5
 
