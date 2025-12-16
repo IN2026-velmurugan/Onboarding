@@ -11,7 +11,7 @@ def system_navigator_using_os(path: str) -> int:
         path : Parent file directory path.
 
     Returns:
-        int: Count of files.
+        Count of files.
     """
     result = 0
     for item in os.listdir(path):
@@ -31,7 +31,7 @@ def system_navigator_using_pathlib(path: Path) -> int:
         path : Parent file directory path.
 
     Returns:
-        int: Count of files.
+        Count of files inside the file directory provided.
     """
     result = 0
     for item in list(path.iterdir()):

@@ -13,7 +13,7 @@ def date_analytics(
         date_list : List of dates in string format YYYY-MM-DD.
 
     Returns:
-        Tuple : Earliest date, latest date and unique dates.
+        Earliest date, latest date and unique dates.
     """
     date_list: List[datetime] = []
     for date in date_list_string:
@@ -28,10 +28,10 @@ def validate_date(date_string: str) -> bool:
     """Validates the date string format YYYY-MM-DD.
 
     Args:
-        date_string : date in string format.
+        date_string : Date in string format.
 
     Returns:
-        bool : True if valid, False otherwise.
+        True if the date is valid, False otherwise.
     """
     try:
         datetime.strptime(date_string, "%Y-%m-%d")
@@ -44,7 +44,7 @@ def get_valid_dates() -> List[str]:
     """Gets valid dates from user input until '0' is entered.
 
     Returns:
-        List: List of valid dates in string format YYYY-MM-DD.
+        List of valid dates in string format YYYY-MM-DD.
     """
     date: str = ""
     valid_dates: List[str] = []

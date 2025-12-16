@@ -2,7 +2,7 @@
 
 import json
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 
 def flatten_nested_json_analyzer(data: Dict[str, Any], parent_key: str = "") -> Dict[str, Any]:
@@ -13,7 +13,7 @@ def flatten_nested_json_analyzer(data: Dict[str, Any], parent_key: str = "") -> 
         parent_key : Parent key. default is "".
 
     Returns:
-        Dict: Flatten JSON structure.
+        Flatten JSON structure.
     """
     flatten_json: Dict[str, Any] = {}
     for key, value in data.items():
@@ -26,7 +26,7 @@ def flatten_nested_json_analyzer(data: Dict[str, Any], parent_key: str = "") -> 
     return flatten_json
 
 
-def json_analyzer(json_path: str) -> Dict[str, Any]:
+def json_analyzer(json_path: str) -> List[Dict[str, Any]]:
     """JSON data extracted from the file.
 
     Args:
@@ -37,7 +37,7 @@ def json_analyzer(json_path: str) -> Dict[str, Any]:
         ValueError: If the file contains invalid JSON.
 
     Returns:
-        Dict: Extracted JSON data.
+        Extracted JSON data.
     """
     path = Path(json_path)
 
@@ -60,5 +60,6 @@ if __name__ == "__main__":
     except Exception as exc:
         print("Error:", exc)
     else:
-        for key, value in flatten_nested_json_analyzer(json_data).items():
-            print(f"{key}: {value}")
+        for dictionary in json_data:
+            for key, value in flatten_nested_json_analyzer(dictionary).items():
+                print(f"{key}: {value}")

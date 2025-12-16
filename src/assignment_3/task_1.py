@@ -1,4 +1,4 @@
-"""Utilities for evaluating infix expressions and converting to postfix."""
+"""Module for evaluating infix expressions and converting to postfix."""
 
 from typing import List
 
@@ -7,10 +7,10 @@ def operator_precedence(operator: str) -> int:
     """To find the precedence of the operator.
 
     Args:
-        operator : Operator.
+        operator : Operator for which the precedence is needed.
 
     Returns:
-        int: Precedence of the operator passed.
+        Precedence of the operator passed.
     """
     precedences = {"+": 1, "-": 1, "*": 2, "/": 2, "^": 3}
     return precedences.get(operator, 0)
@@ -20,16 +20,16 @@ def evaluate_simple_expression(operand_1: float, operand_2: float, operator: str
     """Evaluates the simple expression with two operand.
 
     Args:
-        operand_1 (float): Operand_1
-        operand_2 (float): Operand_2
-        operator (str): Operator
+        operand_1 : First operand.
+        operand_2 : Second operand.
+        operator : Operator.
 
     Raises:
-        ValueError: if the operator is unknown
-        ZeroDivisionError: if division by zero is attempted
+        ValueError: If the operator is unknown.
+        ZeroDivisionError: If division by zero is attempted.
 
     Returns:
-        float: Result of the expression
+        Result of the expression.
     """
     try:
         if operator == "+":
@@ -52,13 +52,13 @@ def postfix_conversion(expression: str) -> List[str]:
     """Converts an infix expression to postfix expression.
 
     Args:
-        expression : Infix expression.
+        expression : Infix expression to be converted to postfix.
 
     Raises:
         ValueError : Raised if the character of the expression is invalid.
 
     Returns:
-        List : postfix expression as a list.
+        Postfix expression as a list.
     """
     stack: List[str] = []
     postfix_expression: List[str] = []
@@ -103,7 +103,7 @@ def expression_evaluator(expression: str) -> float:
         ZeroDivisionError: If division by zero is attempted.
 
     Returns:
-        float: Final value of the expression.
+        Final value of the expression.
     """
     expression.replace(" ", "")
     postfix: List[str]
