@@ -4,7 +4,7 @@ import math
 from typing import Dict, List
 
 import numpy as np
-from sklearn.datasets import load_iris
+from sklearn.datasets import load_iris  # type: ignore
 
 
 def get_dictionary_mapping(data: List[np.ndarray]) -> List[Dict[str, np.float64]]:
