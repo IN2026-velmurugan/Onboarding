@@ -3,6 +3,24 @@
 # Track whether any tool reports issues
 issues_found=false
 
+# -----------------------
+# NI Python Styleguide
+# -----------------------
+echo "which nps: $(poetry run which ni-python-styleguide || true)"
+echo
+
+printf "Running NI Python Styleguide (nps) lint + checks...\n"
+
+# run the ni-python-styleguide lint (wraps flake8 rules set by NI)
+poetry run ni-python-styleguide lint
+nps_status=$?
+if [[ $nps_status -ne 0 ]]; then
+    printf "\e[41mNI Styleguide lint issues found\e[0m\n"
+    issues_found=true
+else
+    printf "\e[42mNI Styleguide lint passed\e[0m\n"
+fi
+
 echo
 printf "Running Black + MyPy checks...\n"
 

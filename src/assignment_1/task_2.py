@@ -1,6 +1,7 @@
-"""This module contains functions to
-filtering the primes from a list of numbers,
-inverting key value pairs in a dictionary
+"""This module contains functions.
+
+filtering the primes from a list of numbers.
+inverting key value pairs in a dictionary.
 """
 
 import math
@@ -35,7 +36,7 @@ def invert_dict(input_dict: Dict[Any, Any]):
 
     Returns:
         Dict[Any, Any]: Dictionary with unique values from the input as keys
-    """
+    """  # noqa: W505 - doc line too long (140 > 100 characters) (auto-generated noqa)
     inverted_dict: Dict[Any, Any] = {}
     for key, value in input_dict.items():
         if value not in inverted_dict:
