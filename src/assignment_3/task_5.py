@@ -32,12 +32,12 @@ def create_line(data: Optional[Dict[str, Any]] = None):
     try:
         with open(DB_FILE, "a") as db_file:
             db_file.write(json.dumps(data) + "\n")
-    except FileNotFoundError:
-        raise FileNotFoundError("Database file not found.")
+    except FileNotFoundError as ex:
+        raise FileNotFoundError("Database file not found.") from ex
     except Exception as exc:
-        raise Exception(f"An error occurred while writing to the database: {exc}")
+        raise Exception(f"An error occurred while writing to the database.") from exc
 
-    print(time_stamp() + "Record created successfully.")
+    print(time_stamp() + " Record created successfully.")
 
 
 def read_lines():
@@ -49,9 +49,11 @@ def read_lines():
     try:
         with open(DB_FILE, "r") as db_file:
             for line in db_file:
+                if not line.strip():
+                    continue
                 print(json.loads(line.strip()))
-    except FileNotFoundError:
-        raise FileNotFoundError("Database file not found.")
+    except FileNotFoundError as ex:
+        raise FileNotFoundError("Database file not found.") from ex
 
 
 def update_line(data: Optional[Dict[str, Any]] = None, condition: Optional[Dict[str, Any]] = None):
@@ -75,17 +77,19 @@ def update_line(data: Optional[Dict[str, Any]] = None, condition: Optional[Dict[
 
         with open(DB_FILE, "w") as db_file:
             for line in lines:
+                if not line.strip():
+                    continue
                 record = json.loads(line.strip())
                 if all(record.get(k) == v for k, v in condition.items()):
                     record.update(data)
                     lines_updated += 1
                 db_file.write(json.dumps(record) + "\n")
 
-        print(time_stamp() + f"{lines_updated} record(s) updated successfully.")
-    except FileNotFoundError:
-        raise FileNotFoundError("Database file not found.")
+        print(time_stamp() + f" {lines_updated} record(s) updated successfully.")
+    except FileNotFoundError as ex:
+        raise FileNotFoundError("Database file not found.") from ex
     except Exception as exc:
-        raise Exception(f"An error occurred while updating the database: {exc}")
+        raise Exception(f"An error occurred while updating the database.") from exc
 
 
 def delete_line(condition: Optional[Dict[str, Any]] = None):
@@ -108,17 +112,19 @@ def delete_line(condition: Optional[Dict[str, Any]] = None):
 
         with open(DB_FILE, "w") as db_file:
             for line in lines:
+                if not line.strip():
+                    continue
                 record = json.loads(line.strip())
                 if all(record.get(k) == v for k, v in condition.items()):
                     lines_deleted += 1
                 else:
                     db_file.write(json.dumps(record) + "\n")
 
-        print(time_stamp() + f"{lines_deleted} record(s) deleted successfully.")
-    except FileNotFoundError:
-        raise FileNotFoundError("Database file not found.")
+        print(time_stamp() + f" {lines_deleted} record(s) deleted successfully.")
+    except FileNotFoundError as ex:
+        raise FileNotFoundError("Database file not found.") from ex
     except Exception as exc:
-        raise Exception(f"An error occurred while deleting from the database: {exc}")
+        raise Exception(f"An error occurred while deleting from the database.") from exc
 
 
 def database_manager(
@@ -161,20 +167,10 @@ def get_json_string() -> Dict[str, Any]:
         data: Dict[str, Any] = json.loads(raw_input_str)
         return data
     except json.JSONDecodeError as exc:
-        raise ValueError(f"Invalid JSON input: {exc}")
+        raise ValueError(f"Invalid JSON input") from exc
 
 
 if __name__ == "__main__":
-    # database_manager("CREATE", {"id": 1, "name": "John Doe"})
-    # database_manager(
-    #     "CREATE",
-    #     {"id": 2, "name": "res", "dict": {"nested": "value", "list": [1, 2, 3]}},
-    # )
-    # database_manager("READ")
-    # database_manager("UPDATE", {"name": "Jane"}, {"id": 1})
-    # database_manager("READ")
-    # database_manager("DELETE", condition={"id": 2})
-    # database_manager("READ")
     try:
         while True:
             print("\n1 - To Create JSON line")

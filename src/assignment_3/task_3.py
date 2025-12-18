@@ -45,7 +45,7 @@ def system_navigator_using_pathlib(path: Path) -> int:
 
 if __name__ == "__main__":
     path = input("Enter the path: ")
-    os_count = system_navigator_using_pathlib(Path(path.replace("\\", "/")))
-    path_count = system_navigator_using_os(path.replace("\\", "/"))
+    path_count = system_navigator_using_pathlib(Path(path.replace("\\", "/")))
+    os_count = system_navigator_using_os(path.replace("\\", "/"))
     print(f"Total number of files using os: {os_count}")
-    print(f"Total number of files using pathlib: {os_count}")
+    print(f"Total number of files using pathlib: {path_count}")

@@ -61,31 +61,31 @@ def postfix_conversion(expression: str) -> List[str]:
         Postfix expression as a list.
     """
     stack: List[str] = []
+    number = ""
     postfix_expression: List[str] = []
     for char in expression:
         if char not in "0123456789+-*/^()":
             raise ValueError(f"Invalid: {char}")
-        number = ""
         if char in "0123456789":
             number += char
-            while len(expression) > 1 and expression[1] in "0123456789":
-                number += expression[1]
-                expression = expression[1:]
+            continue
+        if number != "":
             postfix_expression.append(number)
+            number = ""
+        if char == "(":
+            stack.append(char)
         elif char == ")":
             while stack and stack[-1] != "(":
                 postfix_expression.append(stack.pop())
             stack.pop()
             expression = expression[expression.index(")") + 1 :]
-        elif char == "(":
-            stack.append(char)
-            expression = expression[1:]
         else:
             precedence = operator_precedence(char)
-            while stack and operator_precedence(stack[-1]) >= precedence:
+            while stack and operator_precedence(stack[-1]) > precedence:
                 postfix_expression.append(stack.pop())
             stack.append(char)
-
+    if number != "":
+        postfix_expression.append(number)
     while stack:
         postfix_expression.append(stack.pop())
 
@@ -105,7 +105,7 @@ def expression_evaluator(expression: str) -> float:
     Returns:
         Final value of the expression.
     """
-    expression.replace(" ", "")
+    expression = expression.replace(" ", "")
     postfix: List[str]
     try:
         postfix = postfix_conversion(expression)

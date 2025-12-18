@@ -10,17 +10,21 @@ def date_analytics(
     """Finds the earliest date, latest date and unique dates from a list of dates.
 
     Args:
-        date_list : List of dates in string format YYYY-MM-DD.
+        date_list_string : List of dates in string format YYYY-MM-DD.
+
+    Raises:
+        ValueError: Raised when the input date list is empty.
 
     Returns:
-        Earliest date, latest date and unique dates.
+        earliest date, latest date and unique dates.
     """
+    if not date_list_string:
+        raise ValueError("Date list cannot be empty")
     date_list: List[datetime] = []
     for date in date_list_string:
         date_list.append(datetime.strptime(date, "%Y-%m-%d"))
     date_list.sort()
     date_set: Set[datetime] = set(date_list)
-    print(date_list)
     return date_list[0], date_list[-1], date_set
 
 
@@ -60,8 +64,11 @@ def get_valid_dates() -> List[str]:
 
 
 if __name__ == "__main__":
-    dates = get_valid_dates()
-    Earliest, latest, unique = date_analytics(dates)
-    print("Earliest Date: ", datetime.strftime(Earliest, "%Y-%m-%d"))
-    print("Latest Date: ", datetime.strftime(latest, "%Y-%m-%d"))
-    print("Unique Dates: ", [datetime.strftime(date, "%Y-%m-%d") for date in unique])
+    try:
+        dates = get_valid_dates()
+        earliest, latest, unique = date_analytics(dates)
+        print("earliest Date: ", datetime.strftime(earliest, "%Y-%m-%d"))
+        print("Latest Date: ", datetime.strftime(latest, "%Y-%m-%d"))
+        print("Unique Dates: ", [datetime.strftime(date, "%Y-%m-%d") for date in unique])
+    except Exception as ex:
+        print(f"Error : {ex}")
