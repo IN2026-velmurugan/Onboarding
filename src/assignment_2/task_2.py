@@ -78,13 +78,13 @@ if __name__ == "__main__":
             print(
                 f"After swapping without third variable: variable_1 = {variable_1} , variable_2 = {variable_2} "
             )
-            flag = int(input("Do you want to continue? (1 for Yes / 0 for No): "))
-            if flag == 0:
+            flag = input("Enter 'X' to quit.")
+            if flag.upper() == "X":
                 break
         except TypeError as e:
             print(e, "Please enter numeric values.")
     # this part is to show that error is thrown for non numeric values
-    # try:
-    #     swap_variables_without_third_variable(variable_1, variable_2)
-    # except TypeError as e:
-    #     print(e)
+    try:
+        swap_variables_without_third_variable(variable_1, variable_2)  # type: ignore
+    except TypeError as e:
+        print(e)
