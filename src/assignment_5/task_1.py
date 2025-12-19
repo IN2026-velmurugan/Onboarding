@@ -1,4 +1,4 @@
-"""Module contains methods to analyse the JSON file to extract the prime numbers and its square."""
+"""Module contains methods to analyse the JSON file to extract the prime numbers & their square."""
 
 import json
 import math
@@ -40,10 +40,10 @@ def read_json() -> List[Dict[str, Any]]:
 
 
 def list_with_square_of_primes(data: List[Dict[str, Any]]) -> List[int]:
-    """Extracts the square of numbers whose value is prime.
+    """Extracts the square of numbers whose "value" is prime.
 
     Args:
-        data: JSON data with dictionary having value as keys.
+        data: JSON data.
 
     Returns:
         List of square of prime numbers from the JSON.
