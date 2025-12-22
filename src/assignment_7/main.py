@@ -1,5 +1,7 @@
 """Script to run demonstrate the usage of employee module."""
 
+import logging
+
 from src.assignment_7.employee import (
     Employee,
     Manager,
@@ -7,6 +9,15 @@ from src.assignment_7.employee import (
     create_employee_from_string,
     update_employee_salary,
 )
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+handler = logging.StreamHandler()
+formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
+
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 
 def menu() -> None:
@@ -37,7 +48,7 @@ if __name__ == "__main__":
             choice: int = int(input("Enter your choice: "))
 
         except ValueError:
-            print("Invalid choice. Choice must be a number from 1 to 7.")
+            logger.error("Invalid choice. Choice must be a number from 1 to 7.")
             continue
         if choice == 7:
             print("Exited successfully.")
@@ -72,7 +83,7 @@ if __name__ == "__main__":
                 create_employee(employee_id, employee_name, employee_position, employee_salary)
 
             except ValueError:
-                print("Invalid id or salary. ID and salary must be integer.")
+                logger.error("Invalid id or salary. ID and salary must be integer.")
         elif choice == 2:
             print(f"Total number of employees: {Manager.number_of_employees()}")
 
@@ -88,7 +99,7 @@ if __name__ == "__main__":
                     continue
 
             except ValueError:
-                print("Invalid id or salary, ID and salary must be integer.")
+                logger.error("Invalid id or salary, ID and salary must be integer.")
 
             else:
                 update_employee_salary(employee_id, new_salary)
@@ -100,7 +111,7 @@ if __name__ == "__main__":
                 if display_choice not in range(4):
                     raise ValueError("Invalid choice.")
             except ValueError:
-                print("Enter a valid choice.")
+                logger.error("Enter a valid choice.")
             else:
                 if display_choice == 2:
                     Manager.display_developers()
@@ -114,7 +125,7 @@ if __name__ == "__main__":
             try:
                 print(f"{date} is a weekday: {Employee.is_workday(date)}")
             except ValueError as error:
-                print(error)
+                logger.error(error)
 
         elif choice == 6:
             print("\nEnter the employee data as comma-separated values in the format:")
