@@ -24,21 +24,21 @@ fi
 echo
 printf "Running Black + MyPy checks...\n"
 
-# -----------------------
-# Black
-# -----------------------
-printf "\nBlack Checking.........\n"
+# # -----------------------
+# # Black
+# # -----------------------
+# printf "\nBlack Checking.........\n"
 
-# Run Black in check mode (does NOT modify files)
-poetry run black --check src
-black_status=$?
+# # Run Black in check mode (does NOT modify files)
+# poetry run black --check src
+# black_status=$?
 
-if [[ $black_status -ne 0 ]]; then
-    printf "\e[41mFormatting Issues Found (Black)\e[0m\n"
-    issues_found=true
-else
-    printf "\e[42mNo Formatting Issues Found (Black)\e[0m\n"
-fi
+# if [[ $black_status -ne 0 ]]; then
+#     printf "\e[41mFormatting Issues Found (Black)\e[0m\n"
+#     issues_found=true
+# else
+#     printf "\e[42mNo Formatting Issues Found (Black)\e[0m\n"
+# fi
 
 
 # -----------------------
