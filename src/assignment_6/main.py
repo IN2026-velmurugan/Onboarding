@@ -1,21 +1,81 @@
-"""Demonstration script for the TechFellowTools package."""
+"""Interactive console application to demonstrate the TechFellowTools package."""
 
-from tech_fellow_tools import mean  # type: ignore
-from tech_fellow_tools.data_tools import read_csv  # type: ignore
-from tech_fellow_tools.math_tools import matrix_operations as mo  # type: ignore
-from tech_fellow_tools.string_tools import compress_string  # type: ignore
+from pathlib import Path
 
-# from tech_fellow_tools.string_tools import *  # bad practice
+from src.assignment_6.TechFellowTools import mean
+from src.assignment_6.TechFellowTools.data_tools import read_csv
+from src.assignment_6.TechFellowTools.math_tools import matrix_operations as mo
+from src.assignment_6.TechFellowTools.string_tools.string_transformations import compress_string
 
-# Math functions
-print("Mean:", mean([10, 20, 30]))
 
-matrix_a = [[1.0, 2.0], [3.0, 4.0]]
-matrix_b = [[5.0, 6.0], [7.0, 8.0]]
-print("Matrix Addition:", mo.matrix_addition(matrix_a, matrix_b))
+def show_menu() -> None:
+    """Display menu for the user for demo."""
+    print("\n=== TechFellowTools Demo Console ===")
+    print("1. Math Utilities (Mean)")
+    print("2. Matrix Operations")
+    print("3. String Utilities")
+    print("4. CSV Data Tools")
+    print("5. Exit")
 
-# String functions
-print("Uppercase:", compress_string("tech fellow tools"))  # type: ignore
 
-# Data tools
-print("CSV Data:", read_csv("data.csv"))
+def demo_math() -> None:
+    """Demonstrate use of mean from math_tools."""
+    print("\n--- Math Utilities Demo ---")
+    values = input("Enter numbers separated by space: ").split()
+    numbers = [float(v) for v in values]
+    print("Mean:", mean(numbers))
+
+
+def demo_matrix() -> None:
+    """Demonstrates the matrix operation using the math_tools."""
+    print("\n--- Matrix Operations Demo ---")
+    print("Enter values for 2x2 Matrix A (row-wise):")
+    a = list(map(float, input("A (4 values): ").split()))
+    matrix_a = [[a[0], a[1]], [a[2], a[3]]]
+
+    print("Enter values for 2x2 Matrix B (row-wise):")
+    b = list(map(float, input("B (4 values): ").split()))
+    matrix_b = [[b[0], b[1]], [b[2], b[3]]]
+
+    print("Matrix Addition:", mo.matrix_addition(matrix_a, matrix_b))
+    print("Matrix Multiplication:", mo.matrix_multiplication(matrix_a, matrix_b))
+
+
+def demo_string() -> None:
+    """Demonstrates the use of string_tool module."""
+    print("\n--- String Utilities Demo ---")
+    text = input("Enter a string to compress: ")
+    print("Compressed String:", compress_string(text))
+
+
+def demo_csv() -> None:
+    """Demonstrates the use of data_tool module."""
+    print("\n--- CSV Data Tools Demo ---")
+    path = Path(input("Enter CSV file path: "))
+    print("CSV Content:")
+    print(read_csv(path))
+
+
+def main() -> None:
+    """Main menu operation based on the user choice."""
+    while True:
+        show_menu()
+        choice = input("Enter your choice: ").strip()
+
+        if choice == "1":
+            demo_math()
+        elif choice == "2":
+            demo_matrix()
+        elif choice == "3":
+            demo_string()
+        elif choice == "4":
+            demo_csv()
+        elif choice == "5":
+            print("Exiting TechFellowTools Demo. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please select 1–5.")
+
+
+if __name__ == "__main__":
+    main()

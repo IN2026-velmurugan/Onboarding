@@ -1,24 +1,24 @@
-"""Module contains the methods to process the CSV file or CSV data in format List[Dict[str,str]]."""
+"""Functions to process the CSV data in format of list[dict[str,str]]."""
 
 import csv
-from typing import List, Dict
+from pathlib import Path
 
 
-def read_csv(filepath: str) -> List[Dict[str, str]]:
-    """Reads the CSV content of the file.
+def read_csv(filepath: Path) -> list[dict[str, str]]:
+    """Convert CSV data to list of dictionaries.
 
     Args:
         filepath: CSV file path.
 
     Returns:
-        CSV date as list of columns matched to the CSV data.
+        One dictionary per row, keyed by column headers.
     """
     with open(filepath, newline="", encoding="utf-8") as file:
         return list(csv.DictReader(file))
 
 
-def write_csv(filepath: str, rows: List[Dict[str, str]]) -> None:
-    """Writes the CSV data to the file.
+def write_csv(filepath: Path, rows: list[dict[str, str]]) -> None:
+    """Write the data to CSV file.
 
     Args:
         filepath: CSV destination file path.
@@ -30,8 +30,8 @@ def write_csv(filepath: str, rows: List[Dict[str, str]]) -> None:
         writer.writerows(rows)
 
 
-def filter_rows(rows: List[Dict[str, str]], key: str, value: str):
-    """Searches the CSV and fetches the row data.
+def filter_rows(rows: list[dict[str, str]], key: str, value: str) -> list[dict[str, str]]:
+    """Filter the CSV data to fetch the specific row.
 
     Args:
         rows: CSV file content.
@@ -41,11 +41,11 @@ def filter_rows(rows: List[Dict[str, str]], key: str, value: str):
     Returns:
         The row with the matching key and values.
     """
-    return [row for row in rows if row.get(key) == value]
+    return list(filter(lambda row: row.get(key) == value, rows))
 
 
-def select_columns(rows: List[Dict[str, str]], columns: List[str]):
-    """Selects the column and returns all the row in the column.
+def select_columns(rows: list[dict[str, str]], columns: list[str]):
+    """Select the column and return all the row in the column.
 
     Args:
         rows: CSV file content.
@@ -57,8 +57,8 @@ def select_columns(rows: List[Dict[str, str]], columns: List[str]):
     return [{col: row[col] for col in columns if col in row} for row in rows]
 
 
-def sort_rows(rows: List[Dict[str, str]], key: str):
-    """Sorts the rows based on the mentioned key.
+def sort_rows(rows: list[dict[str, str]], key: str):
+    """Sort the rows based on the mentioned key.
 
     Args:
         rows: CSV file content.

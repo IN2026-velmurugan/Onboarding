@@ -1,19 +1,18 @@
-"""Module contains the functions to perform calculations on matrix."""
+"""Functions to perform calculations on matrix."""
 
-from typing import List
 
-Matrix = List[List[float]]
+Matrix = list[list[float]]
 
 
 def matrix_addition(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
-    """Performs matrix addition.
+    """Perform matrix addition.
 
     Args:
         matrix_a: First matrix to be added with.
         matrix_b: Second matrix to be added.
 
     Returns:
-        Mathematical addition of two matrix.
+        Addition of two matrix.
     """
     return [
         [matrix_a[i][j] + matrix_b[i][j] for j in range(len(matrix_a[0]))]
@@ -22,14 +21,14 @@ def matrix_addition(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
 
 
 def matrix_multiplication(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
-    """Performs matrix multiplication.
+    """Perform matrix multiplication.
 
     Args:
         matrix_a: First matrix to be multiplied with.
         matrix_b: Second matrix to be multiplied.
 
     Returns:
-        Mathematical multiplication two matrix.
+        Multiplication of two matrix.
     """
     result: Matrix = [[0 for _ in range(len(matrix_b[0]))] for _ in range(len(matrix_a))]
     for i in range(len(matrix_a)):
@@ -40,7 +39,7 @@ def matrix_multiplication(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
 
 
 def transpose(matrix: Matrix) -> Matrix:
-    """Performs transpose on matrix.
+    """Perform transpose of a matrix.
 
     Args:
         matrix: Matrix to be transposed.
@@ -52,7 +51,7 @@ def transpose(matrix: Matrix) -> Matrix:
 
 
 def determinant_2x2(matrix: Matrix) -> float:
-    """Finds the Determinant of the 2x2 matrix.
+    """Calculate the determinant of the 2x2 matrix.
 
     Args:
         matrix: Matrix for which the determinant to be found.
@@ -69,7 +68,7 @@ def determinant_2x2(matrix: Matrix) -> float:
 
 
 def inverse_2x2(matrix: Matrix) -> Matrix:
-    """Finds the inverse of the 2x2 matrix.
+    """Calculate the inverse of the 2x2 matrix.
 
     Args:
         matrix: Matrix for which the inverse to be found.
