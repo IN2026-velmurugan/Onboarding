@@ -1,10 +1,10 @@
 """Module with only variables."""
 
-int_variable = 10
-float_variable = 20.5
-string_variable = "Hello, World!"
-bool_variable = True
-complex_variable = 3 + 4j
+int_value = 10
+float_value = 20.5
+string_value = "Hello, World!"
+bool_value = True
+complex_value = 3 + 4j
 MAX_LIMIT = 100
 
 # naming conventions

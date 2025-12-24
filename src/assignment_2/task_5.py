@@ -3,7 +3,7 @@
 number_1 = 5
 
 
-def function():
+def function() -> None:
     """Sample function to demonstrate the variable scope."""
     number_1 = 10
     # number_2 = 15
