@@ -38,7 +38,7 @@ jobs:
       shell: bash
 
     # Checking for errors and warnings in the code with Ruff and Pyrefly
-    - name: Lint Code Base with black, mypy and ni-python-styleguide
+    - name: Lint Code Base with mypy and ni-python-styleguide
       run: bash .github/workflows/run_python_linter.sh
       shell: bash
 
