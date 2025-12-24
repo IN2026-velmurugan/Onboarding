@@ -1,10 +1,8 @@
-"""Module for evaluating infix expressions and converting to postfix."""
-
-from typing import List
+"""Functions to evaluate infix expressions and converting to postfix."""
 
 
 def operator_precedence(operator: str) -> int:
-    """To find the precedence of the operator.
+    """Find the precedence of the operator.
 
     Args:
         operator : Operator for which the precedence is needed.
@@ -16,12 +14,12 @@ def operator_precedence(operator: str) -> int:
     return precedences.get(operator, 0)
 
 
-def evaluate_simple_expression(operand_1: float, operand_2: float, operator: str) -> float:
-    """Evaluates the simple expression with two operand.
+def evaluate_simple_expression(operand_a: float, operand_b: float, operator: str) -> float:
+    """Evaluate the simple expression with two operand.
 
     Args:
-        operand_1 : First operand.
-        operand_2 : Second operand.
+        operand_a : First operand.
+        operand_b : Second operand.
         operator : Operator.
 
     Raises:
@@ -33,23 +31,23 @@ def evaluate_simple_expression(operand_1: float, operand_2: float, operator: str
     """
     try:
         if operator == "+":
-            return operand_1 + operand_2
+            return operand_a + operand_b
         elif operator == "-":
-            return operand_1 - operand_2
+            return operand_a - operand_b
         elif operator == "*":
-            return operand_1 * operand_2
+            return operand_a * operand_b
         elif operator == "/":
-            return operand_1 / operand_2
+            return operand_a / operand_b
         elif operator == "^":
-            return operand_1**operand_2
+            return operand_a**operand_b
         else:
             raise ValueError(f"Unknown operator: {operator}")
     except ZeroDivisionError:
         raise
 
 
-def postfix_conversion(expression: str) -> List[str]:
-    """Converts an infix expression to postfix expression.
+def get_postfix_expression(expression: str) -> list[str]:
+    """Convert an infix expression to postfix expression.
 
     Args:
         expression : Infix expression to be converted to postfix.
@@ -60,9 +58,9 @@ def postfix_conversion(expression: str) -> List[str]:
     Returns:
         Postfix expression as a list.
     """
-    stack: List[str] = []
+    stack: list[str] = []
     number = ""
-    postfix_expression: List[str] = []
+    postfix_expression: list[str] = []
     for char in expression:
         if char not in "0123456789+-*/^()":
             raise ValueError(f"Invalid: {char}")
@@ -93,7 +91,7 @@ def postfix_conversion(expression: str) -> List[str]:
 
 
 def expression_evaluator(expression: str) -> float:
-    """Evaluates the infix expression.
+    """Evaluate the infix expression.
 
     Args:
         expression : Infix expression to be evaluated.
@@ -106,14 +104,14 @@ def expression_evaluator(expression: str) -> float:
         Final value of the expression.
     """
     expression = expression.replace(" ", "")
-    postfix: List[str]
+    postfix: list[str]
     try:
-        postfix = postfix_conversion(expression)
+        postfix = get_postfix_expression(expression)
     except ValueError:
         raise
 
     try:
-        stack: List[float] = []
+        stack: list[float] = []
         for token in postfix:
             if token.isdigit():
                 stack.append(float(token))

@@ -1,14 +1,14 @@
-"""Module contains mock database operation performed on a text file."""
+"""Mock database operation performed on a text file."""
 
 import json
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
-DB_FILE = "database.txt"
+DB_FILE = "database.json"
 
 
 def time_stamp() -> str:
-    """Gets the current timestamp.
+    """Get the current timestamp.
 
     Returns:
         Return the time stamp
@@ -16,8 +16,8 @@ def time_stamp() -> str:
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 
-def create_line(data: Optional[Dict[str, Any]] = None):
-    """Adds the JSON line to the file.
+def create_line(data: Optional[dict[str, Any]] = None) -> None:
+    """Add the JSON line to the file.
 
     Args:
         data : JSON data. Defaults to None.
@@ -40,8 +40,8 @@ def create_line(data: Optional[Dict[str, Any]] = None):
     print(time_stamp() + " Record created successfully.")
 
 
-def read_lines():
-    """Reads and displays the contents of the file.
+def read_lines() -> None:
+    """Display the contents of the file.
 
     Raises:
         FileNotFoundError : When the file is not found.
@@ -56,8 +56,10 @@ def read_lines():
         raise FileNotFoundError("Database file not found.") from ex
 
 
-def update_line(data: Optional[Dict[str, Any]] = None, condition: Optional[Dict[str, Any]] = None):
-    """Updates the JSON line.
+def update_line(
+    data: Optional[dict[str, Any]] = None, condition: Optional[dict[str, Any]] = None
+) -> None:
+    """Update the JSON line.
 
     Args:
         data : Data to be updated. Defaults to None.
@@ -92,8 +94,8 @@ def update_line(data: Optional[Dict[str, Any]] = None, condition: Optional[Dict[
         raise Exception(f"An error occurred while updating the database.") from exc
 
 
-def delete_line(condition: Optional[Dict[str, Any]] = None):
-    """Deletes the JSON line.
+def delete_line(condition: Optional[dict[str, Any]] = None):
+    """Delete a JSON line.
 
     Args:
         condition : The line to be deleted. Defaults to None.
@@ -129,10 +131,10 @@ def delete_line(condition: Optional[Dict[str, Any]] = None):
 
 def database_manager(
     args: str,
-    data: Optional[Dict[str, Any]] = None,
-    condition: Optional[Dict[str, Any]] = None,
+    data: Optional[dict[str, Any]] = None,
+    condition: Optional[dict[str, Any]] = None,
 ):
-    """Manages the database operation.
+    """Manage the database operation.
 
     Args:
         args : Database argument.
@@ -152,11 +154,11 @@ def database_manager(
         raise
 
 
-def get_json_string() -> Dict[str, Any]:
-    """Gets the valid JSON string from the user.
+def get_json_string() -> dict[str, Any]:
+    """Get the valid JSON string from the user.
 
     Raises:
-        ValueError: if the JSON input is not valid.
+        ValueError: If the JSON input is not valid.
 
     Returns:
         JSON string as Dictionary.
@@ -164,10 +166,44 @@ def get_json_string() -> Dict[str, Any]:
     raw_input_str = input("JSON > ")
 
     try:
-        data: Dict[str, Any] = json.loads(raw_input_str)
+        data: dict[str, Any] = json.loads(raw_input_str)
         return data
     except json.JSONDecodeError as exc:
         raise ValueError(f"Invalid JSON input") from exc
+
+
+def create() -> None:
+    """Create a line in database."""
+    print("Enter a JSON object:")
+    print('Example: {"id":2,"name":"res","dict":{"nested":"value","list":[1,2,3]}}')
+    json_line = get_json_string()
+    database_manager("CREATE", json_line)
+
+
+def update() -> None:
+    """Update a line in the database."""
+    database_manager("READ")
+
+    print("\nEnter UPDATE condition")
+    print('Example: {"id": 1}')
+    condition = get_json_string()
+
+    print("\nEnter new values")
+    print('Example: {"name": "Jane"}')
+    data = get_json_string()
+
+    database_manager("UPDATE", data, condition)
+
+
+def delete() -> None:
+    """Delete a line on database."""
+    database_manager("READ")
+
+    print("\nEnter DELETE condition")
+    print('Example: {"id": 1}')
+    condition = get_json_string()
+
+    database_manager("DELETE", condition=condition)
 
 
 if __name__ == "__main__":
@@ -185,35 +221,16 @@ if __name__ == "__main__":
                 break
 
             elif choice == 1:
-                print("Enter a JSON object:")
-                print('Example: {"id":2,"name":"res","dict":{"nested":"value","list":[1,2,3]}}')
-                json_line = get_json_string()
-                database_manager("CREATE", json_line)
+                create()
 
             elif choice == 2:
                 database_manager("READ")
 
             elif choice == 3:
-                database_manager("READ")
-
-                print("\nEnter UPDATE condition")
-                print('Example: {"id": 1}')
-                condition = get_json_string()
-
-                print("\nEnter new values")
-                print('Example: {"name": "Jane"}')
-                data = get_json_string()
-
-                database_manager("UPDATE", data, condition)
+                update()
 
             elif choice == 4:
-                database_manager("READ")
-
-                print("\nEnter DELETE condition")
-                print('Example: {"id": 1}')
-                condition = get_json_string()
-
-                database_manager("DELETE", condition=condition)
+                delete()
 
             else:
                 print("Invalid choice. Try again.")

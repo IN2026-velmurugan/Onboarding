@@ -1,21 +1,22 @@
-"""Module extracting and flattening JSON files."""
+"""Functions for extracting and flattening JSON files."""
 
 import json
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 
-def flatten_nested_json_analyzer(data: Dict[str, Any], parent_key: str = "") -> Dict[str, Any]:
-    """Flattens the nested JSON structure into a single-level dictionary.
+def flatten_nested_json_analyzer(data: dict[str, Any], parent_key: str = "") -> dict[str, Any]:
+    """Flatten the nested JSON structure into a single-level dictionary.
 
     Args:
-        data : The nested JSON data.
-        parent_key : Parent key. default is "".
+        data : The JSON structure that may contain nested structure.
+        parent_key : The base key used for building hierarchical keys during flattening.
+                    Default is "".
 
     Returns:
         Flatten JSON structure.
     """
-    flatten_json: Dict[str, Any] = {}
+    flatten_json: dict[str, Any] = {}
     for key, value in data.items():
         if isinstance(value, dict):
             flatten_json = flatten_json | flatten_nested_json_analyzer(
@@ -26,7 +27,7 @@ def flatten_nested_json_analyzer(data: Dict[str, Any], parent_key: str = "") -> 
     return flatten_json
 
 
-def json_analyzer(json_path: str) -> List[Dict[str, Any]]:
+def json_analyzer(json_path: str) -> list[dict[str, Any]]:
     """JSON data extracted from the file.
 
     Args:
@@ -37,7 +38,7 @@ def json_analyzer(json_path: str) -> List[Dict[str, Any]]:
         ValueError: If the file contains invalid JSON.
 
     Returns:
-        Extracted JSON data.
+        JSON data from the file.
     """
     path = Path(json_path)
 

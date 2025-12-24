@@ -1,35 +1,37 @@
-"""Module to perform date analytics on a list of dates provided by the user."""
+"""Perform date analytics on a list of dates provided by the user."""
 
 from datetime import datetime
-from typing import List, Set, Tuple
 
 
-def date_analytics(
-    date_list_string: List[str],
-) -> Tuple[datetime, datetime, Set[datetime]]:
-    """Finds the earliest date, latest date and unique dates from a list of dates.
+def get_date_analytics(
+    raw_dates: list[str],
+) -> tuple[datetime, datetime, set[datetime]]:
+    """Find the earliest date, latest date and unique dates from a list of dates.
 
     Args:
-        date_list_string : List of dates in string format YYYY-MM-DD.
+        raw_dates : list of dates in string format YYYY-MM-DD.
 
     Raises:
-        ValueError: Raised when the input date list is empty.
+        ValueError: When the input date list is empty.
 
     Returns:
-        earliest date, latest date and unique dates.
+        Earliest date, latest date and unique dates.
     """
-    if not date_list_string:
+    if not raw_dates:
         raise ValueError("Date list cannot be empty")
-    date_list: List[datetime] = []
-    for date in date_list_string:
+
+    date_list: list[datetime] = []
+    for date in raw_dates:
         date_list.append(datetime.strptime(date, "%Y-%m-%d"))
+
     date_list.sort()
-    date_set: Set[datetime] = set(date_list)
+    date_set: set[datetime] = set(date_list)
+
     return date_list[0], date_list[-1], date_set
 
 
 def validate_date(date_string: str) -> bool:
-    """Validates the date string format YYYY-MM-DD.
+    """Validate whether the date string is in the format YYYY-MM-DD.
 
     Args:
         date_string : Date in string format.
@@ -39,36 +41,44 @@ def validate_date(date_string: str) -> bool:
     """
     try:
         datetime.strptime(date_string, "%Y-%m-%d")
-        return True
-    except Exception:
+    except ValueError:
         return False
+    else:
+        return True
 
 
-def get_valid_dates() -> List[str]:
-    """Gets valid dates from user input until '0' is entered.
+def get_valid_dates() -> list[str]:
+    """Get valid dates from user input until '0' is entered.
 
     Returns:
-        List of valid dates in string format YYYY-MM-DD.
+        list of valid dates in string format YYYY-MM-DD.
     """
     date: str = ""
-    valid_dates: List[str] = []
+    valid_dates: list[str] = []
     while date != "0":
-        date = input("Enter dates in YYYY-MM-DD format : (0 to stop) ")
-        if validate_date(date):
-            valid_dates.append(date)
-        elif date == "0":
-            break
-        else:
-            print("Invalid date format. Please try again.")
+        try:
+            date = input("Enter dates in YYYY-MM-DD format : (0 to stop) ")
+            if date == "0":
+                break
+            elif validate_date(date):
+                valid_dates.append(date)
+            else:
+                print("Invalid date format. Please try again.")
+        except KeyboardInterrupt:
+            raise
     return valid_dates
 
 
 if __name__ == "__main__":
     try:
         dates = get_valid_dates()
-        earliest, latest, unique = date_analytics(dates)
+        earliest, latest, unique = get_date_analytics(dates)
         print("earliest Date: ", datetime.strftime(earliest, "%Y-%m-%d"))
         print("Latest Date: ", datetime.strftime(latest, "%Y-%m-%d"))
         print("Unique Dates: ", [datetime.strftime(date, "%Y-%m-%d") for date in unique])
+    except ValueError as value_ex:
+        print(f"Value_error : {value_ex}")
+    except KeyboardInterrupt:
+        print("Program was interrupted.")
     except Exception as ex:
         print(f"Error : {ex}")
