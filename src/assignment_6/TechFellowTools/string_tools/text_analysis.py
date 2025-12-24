@@ -29,7 +29,6 @@ def most_common_word(sentence: str) -> str:
     return max(freq, key=lambda k: freq[k])
 
 
-
 def lexical_diversity(sentence: str) -> float:
     """Calculate the lexical diversity of a given of the sentence.
 

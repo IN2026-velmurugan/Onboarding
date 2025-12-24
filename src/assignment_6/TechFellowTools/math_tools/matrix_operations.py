@@ -1,6 +1,5 @@
 """Functions to perform calculations on matrix."""
 
-
 Matrix = list[list[float]]
 
 

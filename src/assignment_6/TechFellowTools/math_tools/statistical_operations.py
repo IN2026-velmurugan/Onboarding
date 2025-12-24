@@ -4,6 +4,7 @@ import math
 
 Values = float | int
 
+
 def mean(values: list[Values]) -> Values:
     """Calculate the mean of the list of values.
 
