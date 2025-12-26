@@ -1,20 +1,19 @@
-"""Module contains the numpy array value mapping."""
+"""Function for numpy array value mapping."""
 
 import math
-from typing import Dict, List
 
 import numpy as np
 from sklearn.datasets import load_iris  # type: ignore
 
 
 def get_dictionary_mapping(
-    data: np.ndarray, feature_names: List[str]
-) -> List[Dict[str, np.float64]]:
-    """Maps the normalized value to the features.
+    data: np.ndarray, feature_names: list[str]
+) -> list[dict[str, np.float64]]:
+    """Map the normalized value to the features.
 
     Args:
         data: 2D numpy array data.
-        feature_names: Feature names of numpy array.
+        feature_names: Feature names for the numpy array.
 
     Returns:
         The normalized value mapped to the feature.
