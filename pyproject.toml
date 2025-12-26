@@ -18,6 +18,7 @@ pre-commit = "^4.2.0"
 black = "^24.3.0"
 mypy = "^1.5.1"
 ni-python-styleguide = "^0.4.7"
+setuptools = "^80.9.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.4.0"
