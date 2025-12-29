@@ -1,4 +1,4 @@
-"""Script to run demonstrate the usage of employee module."""
+"""Script to demonstrate the usage of employee module."""
 
 import logging
 from pathlib import Path
@@ -10,7 +10,7 @@ from src.assignment_7.constants import (
     TOTAL_EMPLOYEES,
 )
 from src.assignment_7.employee import Employee
-from src.assignment_7.employee_manager import (
+from src.assignment_7.employee_management import (
     add_employee,
     add_employee_from_csv_string,
     assign_mentor,

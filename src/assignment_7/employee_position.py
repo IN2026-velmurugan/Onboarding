@@ -1,4 +1,4 @@
-"""Class for different employee category."""
+"""Class for different employee positions."""
 
 from src.assignment_7.employee import Employee
 
@@ -6,7 +6,7 @@ from src.assignment_7.employee import Employee
 class Manager(Employee):
     """Represent a manager employee."""
 
-    def __init__(self, manager_id: int, name: str, salary: int) -> None:
+    def __init__(self, manager_id: int, name: str, salary: float) -> None:
         """Initialize a Manager instance.
 
         Args:
@@ -76,7 +76,7 @@ class Manager(Employee):
 class Developer(Employee):
     """Represent a developer employee."""
 
-    def __init__(self, developer_id: int, name: str, salary: int) -> None:
+    def __init__(self, developer_id: int, name: str, salary: float) -> None:
         """Initialize a Developer instance.
 
         Args:
@@ -129,7 +129,7 @@ class Developer(Employee):
 class Intern(Employee):
     """Represent an intern employee."""
 
-    def __init__(self, intern_id: int, name: str, salary: int) -> None:
+    def __init__(self, intern_id: int, name: str, salary: float) -> None:
         """Initialize an Intern instance.
 
         Args:

@@ -72,7 +72,7 @@ def create_employee_from_string(str_input: str) -> Employee:
         employee_id = int(data[0])
         name = data[1]
         position = data[2].lower()
-        salary = int(data[3])
+        salary = float(data[3])
     except ValueError:
         raise
     except IndexError:
@@ -88,7 +88,7 @@ def create_employee_from_string(str_input: str) -> Employee:
         raise ValueError(INVALID_EMPLOYEE_POSITION.format(position))
 
 
-def update_employee_salary(employee_id: int, new_salary: int) -> None:
+def update_employee_salary(employee_id: int, new_salary: float) -> None:
     """Update the salary of an existing employee.
 
     Locate the employee using the employee ID and update the salary
@@ -151,7 +151,7 @@ def add_employee() -> None:
             LOGGER.warning(INVALID_EMPLOYEE_POSITION_INPUT)
             return
 
-        if int(employee_salary) <= 0:
+        if float(employee_salary) <= 0.0:
             LOGGER.warning(SALARY_SHOULD_BE_POSITIVE)
             return
 
@@ -176,13 +176,13 @@ def update_employee() -> None:
     """Update the salary of an existing employee."""
     try:
         employee_id = int(input(ENTER_EMPLOYEE_ID_EDIT))
-        new_salary = int(input(ENTER_NEW_SALARY))
+        new_salary = float(input(ENTER_NEW_SALARY))
 
         if employee_id <= 0:
             LOGGER.warning(NEGATIVE_ID_ERROR)
             return
 
-        if new_salary <= 0:
+        if new_salary <= 0.0:
             LOGGER.warning(NEGATIVE_SALARY_ERROR)
             return
 

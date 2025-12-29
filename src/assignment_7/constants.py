@@ -11,7 +11,7 @@ TOTAL_EMPLOYEES = "Total number of employees: {}"
 
 # ----------- Input Prompts -----------
 
-ENTER_CHOICE = "Enter your choice: "
+ENTER_CHOICE = "Enter your choice between 0 and 9:"
 ENTER_EMPLOYEE_ID_EDIT = "\nEnter the employee id to edit the salary: "
 ENTER_NEW_SALARY = "Enter the new salary: "
 ENTER_DISPLAY_CHOICE = "Enter your choice."

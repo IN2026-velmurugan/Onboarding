@@ -1,4 +1,4 @@
-"""Define the Employee class."""
+"""Employee base class."""
 
 import datetime
 
@@ -8,7 +8,7 @@ class Employee:
 
     employee_data: dict[int, "Employee"] = {}
 
-    def __init__(self, employee_id: int, name: str, position: str, salary: int) -> None:
+    def __init__(self, employee_id: int, name: str, position: str, salary: float) -> None:
         """Initialize an employee instance.
 
         Args:
@@ -40,7 +40,7 @@ class Employee:
         )
 
     @property
-    def salary(self) -> int:
+    def salary(self) -> float:
         """Return the employee salary.
 
         Returns:
@@ -49,7 +49,7 @@ class Employee:
         return self.__salary
 
     @salary.setter
-    def salary(self, salary: int) -> None:
+    def salary(self, salary: float) -> None:
         """Update the employee salary.
 
         Args:
