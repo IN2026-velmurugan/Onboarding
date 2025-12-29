@@ -159,3 +159,6 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 src/assignment_7/log.txt
+
+src/assignment_8/venv_app_a/
+src/assignment_8/venv_app_b/
