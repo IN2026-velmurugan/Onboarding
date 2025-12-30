@@ -2,8 +2,8 @@
 
 from typing import Iterator
 
-import requests
-from bs4 import BeautifulSoup, Tag
+import requests  # type : [ignore]
+from bs4 import BeautifulSoup, Tag  # type : [ignore]
 
 
 def is_valid_link(tag: Tag) -> bool:
@@ -61,7 +61,16 @@ def extract_link(url: str) -> dict[str, str]:
 
 
 if __name__ == "__main__":
-    url = input("Enter the URL to scrap the link : ").replace('"', "")
-    link_map: dict[str, str] = extract_link(url)
-    for k in link_map:
-        print(f"Text : {k} & Link : {link_map.get(k)}")
+    try:
+        url = input("Enter the URL to scrap the link : ").replace('"', "")
+        if not url:
+            raise ValueError("Cannot scrap the empty URL!!!")
+        link_map: dict[str, str] = extract_link(url)
+        for k in link_map:
+            print(f"Text : {k} & Link : {link_map.get(k)}")
+    except KeyboardInterrupt:
+        print("Program inputted shutting down the application.")
+    except ValueError as e:
+        print(f"Application error : {e}")
+    except RuntimeError as e:
+        print(f"Error while scrapping the site : {e}")

@@ -20,23 +20,17 @@ def is_prime(number: int) -> bool:
     Returns:
         True if the number is prime, False if the number is not prime.
     """
-    if number < 2 or number % 2 == 0 or number % 3 == 0:
+    if number < 2:
         return False
-    for i in range(2, math.isqrt(number) + 1):
-        if number % i == 0:
+    if number in (2, 3):
+        return True
+    if number % 2 == 0 or number % 3 == 0:
+        return False
+
+    for i in range(5, math.isqrt(number) + 1, 6):
+        if number % i == 0 or number % (i + 2) == 0:
             return False
     return True
-
-
-def read_json() -> list[dict[str, Any]]:
-    """Convert the JSON content it to list of dictionaries.
-
-    Returns:
-        Return list of dictionaries.
-    """
-    with open(PATH.absolute(), "r") as file:
-        data = json.load(file)
-    return data
 
 
 def get_square_of_primes(data: list[dict[str, Any]]) -> list[int]:
@@ -48,7 +42,12 @@ def get_square_of_primes(data: list[dict[str, Any]]) -> list[int]:
     Returns:
         List of square of prime numbers from the JSON.
     """
-    return [dictionary["value"] ** 2 for dictionary in data if is_prime(dictionary["value"])]
+    return list(
+        map(
+            lambda d: d["value"] ** 2,
+            filter(lambda d: "value" in d and is_prime(d["value"]), data),
+        )
+    )
 
 
 def filter_unique_values(squared_list: list[int]) -> set[int]:
@@ -63,11 +62,11 @@ def filter_unique_values(squared_list: list[int]) -> set[int]:
     return set(squared_list)
 
 
-def seed_json():
+def seed_json() -> None:
     """Seed JSON value to the provided path."""
-    if not PATH.exists():
+    if not PATH.exists() or PATH.stat().st_size == 0:
         data = [{"id": i, "value": random.randint(1, 100)} for i in range(1, 10001)]
-        with open(PATH.absolute(), "w") as json_file:
+        with open(PATH.absolute(), "w", encoding="utf-8") as json_file:
             json.dump(data, json_file)
 
 
