@@ -1,7 +1,24 @@
 """Functions to evaluate infix expressions and converting to postfix."""
 
+# Constants
+VALID_CHARS = "0123456789+-*/^()"
+DIGITS = "0123456789"
 
-def operator_precedence(operator: str) -> int:
+ERROR_INVALID_CHAR = (
+    "Invalid expression the expression should contain only "
+    '`0123456789+-*/^()`, but found "{char}"'
+)
+ERROR_MISMATCHED_PARENTHESES = "Mismatched parentheses"
+ERROR_UNKNOWN_OPERATOR = "Unknown operator: {operator}"
+ERROR_INVALID_EXPRESSION_SYNTAX = "Invalid expression syntax"
+ERROR_DIVISION_BY_ZERO = "Division by zero is not allowed."
+
+INPUT_PROMPT = "Enter a valid expression `0123456789+-*/^()`: \n"
+INTERRUPT_MESSAGE = "Program interrupted by the user, shutting down!"
+UNEXPECTED_ERROR = "Unexpected error: {error}"
+
+
+def get_operator_precedence(operator: str) -> int:
     """Find the precedence of the operator.
 
     Args:
@@ -24,26 +41,22 @@ def evaluate_simple_expression(operand_a: float, operand_b: float, operator: str
 
     Raises:
         ValueError: If the operator is unknown.
-        ZeroDivisionError: If division by zero is attempted.
 
     Returns:
         Result of the expression.
     """
-    try:
-        if operator == "+":
-            return operand_a + operand_b
-        elif operator == "-":
-            return operand_a - operand_b
-        elif operator == "*":
-            return operand_a * operand_b
-        elif operator == "/":
-            return operand_a / operand_b
-        elif operator == "^":
-            return operand_a**operand_b
-        else:
-            raise ValueError(f"Unknown operator: {operator}")
-    except ZeroDivisionError:
-        raise
+    if operator == "+":
+        return operand_a + operand_b
+    elif operator == "-":
+        return operand_a - operand_b
+    elif operator == "*":
+        return operand_a * operand_b
+    elif operator == "/":
+        return operand_a / operand_b
+    elif operator == "^":
+        return operand_a**operand_b
+    else:
+        raise ValueError(ERROR_UNKNOWN_OPERATOR.format(operator=operator))
 
 
 def get_postfix_expression(expression: str) -> list[str]:
@@ -61,36 +74,49 @@ def get_postfix_expression(expression: str) -> list[str]:
     stack: list[str] = []
     number = ""
     postfix_expression: list[str] = []
+
     for char in expression:
-        if char not in "0123456789+-*/^()":
-            raise ValueError(f"Invalid: {char}")
-        if char in "0123456789":
+        if char not in VALID_CHARS:
+            raise ValueError(ERROR_INVALID_CHAR.format(char=char))
+
+        if char in DIGITS:
             number += char
             continue
-        if number != "":
+
+        if number:
             postfix_expression.append(number)
             number = ""
+
         if char == "(":
             stack.append(char)
+
         elif char == ")":
+            if "(" not in stack:
+                raise ValueError(ERROR_MISMATCHED_PARENTHESES)
+
             while stack and stack[-1] != "(":
                 postfix_expression.append(stack.pop())
             stack.pop()
-            expression = expression[expression.index(")") + 1 :]
+
         else:
-            precedence = operator_precedence(char)
-            while stack and operator_precedence(stack[-1]) > precedence:
+            precedence = get_operator_precedence(char)
+            while stack and stack[-1] != "(" and get_operator_precedence(stack[-1]) >= precedence:
                 postfix_expression.append(stack.pop())
             stack.append(char)
-    if number != "":
+
+    if number:
         postfix_expression.append(number)
+
     while stack:
-        postfix_expression.append(stack.pop())
+        op = stack.pop()
+        if op == "(":
+            raise ValueError(ERROR_MISMATCHED_PARENTHESES)
+        postfix_expression.append(op)
 
     return postfix_expression
 
 
-def expression_evaluator(expression: str) -> float:
+def evaluate_expression(expression: str) -> float:
     """Evaluate the infix expression.
 
     Args:
@@ -104,35 +130,41 @@ def expression_evaluator(expression: str) -> float:
         Final value of the expression.
     """
     expression = expression.replace(" ", "")
-    postfix: list[str]
-    try:
-        postfix = get_postfix_expression(expression)
-    except ValueError:
-        raise
+    postfix = get_postfix_expression(expression)
 
     try:
         stack: list[float] = []
+
         for token in postfix:
             if token.isdigit():
                 stack.append(float(token))
             else:
                 b = stack.pop()
                 a = stack.pop()
-                result = evaluate_simple_expression(a, b, token)
-                stack.append(result)
+                stack.append(evaluate_simple_expression(a, b, token))
+
+        if len(stack) != 1:
+            raise ValueError(ERROR_INVALID_EXPRESSION_SYNTAX)
 
         return stack.pop()
-    except ValueError:
-        raise
-    except ZeroDivisionError:
-        raise
+
+    except IndexError:
+        raise ValueError(ERROR_INVALID_EXPRESSION_SYNTAX)
 
 
 if __name__ == "__main__":
-    expression = input("Enter the expression: ")
     try:
-        print(expression_evaluator(expression))
+        expression = input(INPUT_PROMPT)
+        print(evaluate_expression(expression))
+
+    except KeyboardInterrupt:
+        print(INTERRUPT_MESSAGE)
+
     except ValueError as ve:
         print(f"Error: {ve}")
+
     except ZeroDivisionError:
-        print("Error: Division by zero is not allowed.")
+        print(f"Error: {ERROR_DIVISION_BY_ZERO}")
+
+    except Exception as e:
+        print(UNEXPECTED_ERROR.format(error=e))

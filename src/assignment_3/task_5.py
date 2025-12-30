@@ -4,7 +4,57 @@ import json
 from datetime import datetime
 from typing import Any, Optional
 
+# Constants
 DB_FILE = "database.json"
+
+TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
+
+# Operation names
+OP_CREATE = "CREATE"
+OP_READ = "READ"
+OP_UPDATE = "UPDATE"
+OP_DELETE = "DELETE"
+
+# Error messages
+ERROR_CREATE_DATA_MISSING = "Data must be provided for CREATE operation."
+ERROR_UPDATE_DATA_MISSING = "Data and condition must be provided for UPDATE operation."
+ERROR_DELETE_CONDITION_MISSING = "Condition must be provided for DELETE operation."
+ERROR_DB_FILE_NOT_FOUND = "Database file not found."
+ERROR_UPDATE_FAILED = "An error occurred while updating the database."
+ERROR_DELETE_FAILED = "An error occurred while deleting from the database."
+ERROR_INVALID_JSON_INPUT = "Invalid JSON input"
+
+# Success messages
+MSG_RECORD_CREATED = "Record created successfully."
+MSG_RECORDS_UPDATED = "{} record(s) updated successfully."
+MSG_RECORDS_DELETED = "{} record(s) deleted successfully."
+
+# Input / prompt messages
+PROMPT_JSON_INPUT = "JSON > "
+PROMPT_CREATE_JSON = "Enter a JSON object:"
+PROMPT_UPDATE_CONDITION = "\nEnter UPDATE condition"
+PROMPT_UPDATE_VALUES = "\nEnter new values"
+PROMPT_DELETE_CONDITION = "\nEnter DELETE condition"
+
+EXAMPLE_JSON_FULL = 'Example: {"id":2,"name":"res","dict":{"nested":"value","list":[1,2,3]}}'
+EXAMPLE_JSON_ID = 'Example: {"id": 1}'
+EXAMPLE_JSON_UPDATE = 'Example: {"name": "Jane"}'
+
+MENU_TEXT = """
+1 - To Create JSON line
+2 - To Read JSON line
+3 - To Update JSON line
+4 - To Delete JSON line
+0 - To Exit
+"""
+
+PROMPT_MENU_CHOICE = "Enter your choice (0-4):"
+MSG_INVALID_CHOICE = "Invalid choice. Try again."
+
+# Exception output
+INPUT_ERROR_PREFIX = "Input error:"
+DATABASE_ERROR_PREFIX = "Database error:"
+EXIT_MESSAGE = "\nOperation cancelled by user"
 
 
 def time_stamp() -> str:
@@ -13,34 +63,25 @@ def time_stamp() -> str:
     Returns:
         Return the time stamp
     """
-    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return datetime.now().strftime(TIMESTAMP_FORMAT)
 
 
-def create_line(data: Optional[dict[str, Any]] = None) -> None:
+def create_record(data: Optional[dict[str, Any]] = None) -> None:
     """Add the JSON line to the file.
 
     Args:
         data : JSON data. Defaults to None.
-
-    Raises:
-        ValueError : If data is not provided.
-        FileNotFoundError : When the file is not found.
-        Exception : Uncaught exception.
     """
     if data is None:
-        raise ValueError("Data must be provided for CREATE operation.")
-    try:
-        with open(DB_FILE, "a") as db_file:
-            db_file.write(json.dumps(data) + "\n")
-    except FileNotFoundError as ex:
-        raise FileNotFoundError("Database file not found.") from ex
-    except Exception as exc:
-        raise Exception(f"An error occurred while writing to the database.") from exc
+        raise ValueError(ERROR_CREATE_DATA_MISSING)
 
-    print(time_stamp() + " Record created successfully.")
+    with open(DB_FILE, "a", encoding="utf-8") as db_file:
+        db_file.write(json.dumps(data) + "\n")
+
+    print(time_stamp(), MSG_RECORD_CREATED)
 
 
-def read_lines() -> None:
+def read_record() -> None:
     """Display the contents of the file.
 
     Raises:
@@ -53,10 +94,10 @@ def read_lines() -> None:
                     continue
                 print(json.loads(line.strip()))
     except FileNotFoundError as ex:
-        raise FileNotFoundError("Database file not found.") from ex
+        raise FileNotFoundError(ERROR_DB_FILE_NOT_FOUND) from ex
 
 
-def update_line(
+def update_record(
     data: Optional[dict[str, Any]] = None, condition: Optional[dict[str, Any]] = None
 ) -> None:
     """Update the JSON line.
@@ -71,7 +112,8 @@ def update_line(
         Exception: Uncaught exception.
     """
     if data is None or condition is None:
-        raise ValueError("Data and condition must be provided for UPDATE operation.")
+        raise ValueError(ERROR_UPDATE_DATA_MISSING)
+
     try:
         lines_updated = 0
         with open(DB_FILE, "r") as db_file:
@@ -87,14 +129,15 @@ def update_line(
                     lines_updated += 1
                 db_file.write(json.dumps(record) + "\n")
 
-        print(time_stamp() + f" {lines_updated} record(s) updated successfully.")
+        print(time_stamp(), MSG_RECORDS_UPDATED.format(lines_updated))
+
     except FileNotFoundError as ex:
-        raise FileNotFoundError("Database file not found.") from ex
+        raise FileNotFoundError(ERROR_DB_FILE_NOT_FOUND) from ex
     except Exception as exc:
-        raise Exception(f"An error occurred while updating the database.") from exc
+        raise Exception(ERROR_UPDATE_FAILED) from exc
 
 
-def delete_line(condition: Optional[dict[str, Any]] = None):
+def delete_record(condition: Optional[dict[str, Any]] = None):
     """Delete a JSON line.
 
     Args:
@@ -106,7 +149,8 @@ def delete_line(condition: Optional[dict[str, Any]] = None):
         Exception: Uncaught exception.
     """
     if condition is None:
-        raise ValueError("Condition must be provided for DELETE operation.")
+        raise ValueError(ERROR_DELETE_CONDITION_MISSING)
+
     try:
         lines_deleted = 0
         with open(DB_FILE, "r") as db_file:
@@ -122,11 +166,12 @@ def delete_line(condition: Optional[dict[str, Any]] = None):
                 else:
                     db_file.write(json.dumps(record) + "\n")
 
-        print(time_stamp() + f" {lines_deleted} record(s) deleted successfully.")
+        print(time_stamp(), MSG_RECORDS_DELETED.format(lines_deleted))
+
     except FileNotFoundError as ex:
-        raise FileNotFoundError("Database file not found.") from ex
+        raise FileNotFoundError(ERROR_DB_FILE_NOT_FOUND) from ex
     except Exception as exc:
-        raise Exception(f"An error occurred while deleting from the database.") from exc
+        raise Exception(ERROR_DELETE_FAILED) from exc
 
 
 def database_manager(
@@ -141,17 +186,14 @@ def database_manager(
         data : Data to be updated. Defaults to None.
         condition : The line to be updated. Defaults to None.
     """
-    try:
-        if args == "CREATE":
-            create_line(data)
-        elif args == "READ":
-            read_lines()
-        elif args == "UPDATE":
-            update_line(data, condition)
-        elif args == "DELETE":
-            delete_line(condition)
-    except Exception:
-        raise
+    if args == OP_CREATE:
+        create_record(data)
+    elif args == OP_READ:
+        read_record()
+    elif args == OP_UPDATE:
+        update_record(data, condition)
+    elif args == OP_DELETE:
+        delete_record(condition)
 
 
 def get_json_string() -> dict[str, Any]:
@@ -163,77 +205,71 @@ def get_json_string() -> dict[str, Any]:
     Returns:
         JSON string as Dictionary.
     """
-    raw_input_str = input("JSON > ")
+    raw_input_str = input(PROMPT_JSON_INPUT)
 
     try:
-        data: dict[str, Any] = json.loads(raw_input_str)
-        return data
+        return json.loads(raw_input_str)
     except json.JSONDecodeError as exc:
-        raise ValueError(f"Invalid JSON input") from exc
+        raise ValueError(ERROR_INVALID_JSON_INPUT) from exc
 
 
-def create() -> None:
+def run_create_command() -> None:
     """Create a line in database."""
-    print("Enter a JSON object:")
-    print('Example: {"id":2,"name":"res","dict":{"nested":"value","list":[1,2,3]}}')
+    print(PROMPT_CREATE_JSON)
+    print(EXAMPLE_JSON_FULL)
     json_line = get_json_string()
-    database_manager("CREATE", json_line)
+    database_manager(OP_CREATE, json_line)
 
 
-def update() -> None:
+def run_update_command() -> None:
     """Update a line in the database."""
-    database_manager("READ")
+    database_manager(OP_READ)
 
-    print("\nEnter UPDATE condition")
-    print('Example: {"id": 1}')
+    print(PROMPT_UPDATE_CONDITION)
+    print(EXAMPLE_JSON_ID)
     condition = get_json_string()
 
-    print("\nEnter new values")
-    print('Example: {"name": "Jane"}')
+    print(PROMPT_UPDATE_VALUES)
+    print(EXAMPLE_JSON_UPDATE)
     data = get_json_string()
 
-    database_manager("UPDATE", data, condition)
+    database_manager(OP_UPDATE, data, condition)
 
 
-def delete() -> None:
+def run_delete_command() -> None:
     """Delete a line on database."""
-    database_manager("READ")
+    database_manager(OP_READ)
 
-    print("\nEnter DELETE condition")
-    print('Example: {"id": 1}')
+    print(PROMPT_DELETE_CONDITION)
+    print(EXAMPLE_JSON_ID)
     condition = get_json_string()
 
-    database_manager("DELETE", condition=condition)
+    database_manager(OP_DELETE, condition=condition)
 
 
 if __name__ == "__main__":
-    try:
-        while True:
-            print("\n1 - To Create JSON line")
-            print("2 - To Read JSON line")
-            print("3 - To Update JSON line")
-            print("4 - To Delete JSON line")
-            print("0 - To Exit")
-
-            choice = int(input("Enter your choice: "))
+    choice = -1
+    while choice != 0:
+        try:
+            print(MENU_TEXT)
+            choice = int(input(PROMPT_MENU_CHOICE))
 
             if choice == 0:
                 break
-
             elif choice == 1:
-                create()
-
+                run_create_command()
             elif choice == 2:
-                database_manager("READ")
-
+                database_manager(OP_READ)
             elif choice == 3:
-                update()
-
+                run_update_command()
             elif choice == 4:
-                delete()
-
+                run_delete_command()
             else:
-                print("Invalid choice. Try again.")
+                print(MSG_INVALID_CHOICE)
 
-    except Exception as exc:
-        print(f"Error: {exc}")
+        except ValueError as exc:
+            print(INPUT_ERROR_PREFIX, exc)
+        except FileNotFoundError as exc:
+            print(DATABASE_ERROR_PREFIX, exc)
+        except KeyboardInterrupt:
+            print(EXIT_MESSAGE)

@@ -1,15 +1,28 @@
 """Perform date analytics on a list of dates provided by the user."""
 
-from datetime import datetime
+from datetime import datetime, date
+
+# constants
+ERROR_EMPTY_DATE_LIST = "Date list cannot be empty"
+ERROR_INVALID_DATE_FORMAT = "Invalid date format. Please try again."
+
+INPUT_DATE_PROMPT = "Enter dates in YYYY-MM-DD format : (0 to stop) "
+
+PRINT_EARLIEST = "earliest Date: "
+PRINT_LATEST = "Latest Date: "
+PRINT_UNIQUE = "Unique Dates: "
+
+ERROR_PREFIX = "Error : {}"
+INTERRUPT_MESSAGE = "Program was interrupted."
 
 
 def get_date_analytics(
     raw_dates: list[str],
-) -> tuple[datetime, datetime, set[datetime]]:
+) -> tuple[date, date, set[date]]:
     """Find the earliest date, latest date and unique dates from a list of dates.
 
     Args:
-        raw_dates : list of dates in string format YYYY-MM-DD.
+        raw_dates : List of dates in string format YYYY-MM-DD.
 
     Raises:
         ValueError: When the input date list is empty.
@@ -18,54 +31,42 @@ def get_date_analytics(
         Earliest date, latest date and unique dates.
     """
     if not raw_dates:
-        raise ValueError("Date list cannot be empty")
+        raise ValueError(ERROR_EMPTY_DATE_LIST)
 
-    date_list: list[datetime] = []
-    for date in raw_dates:
-        date_list.append(datetime.strptime(date, "%Y-%m-%d"))
+    date_list: list[date] = []
+    for d in raw_dates:
+        date_list.append(datetime.fromisoformat(d).date())
 
     date_list.sort()
-    date_set: set[datetime] = set(date_list)
+    date_set: set[date] = set(date_list)
 
     return date_list[0], date_list[-1], date_set
-
-
-def validate_date(date_string: str) -> bool:
-    """Validate whether the date string is in the format YYYY-MM-DD.
-
-    Args:
-        date_string : Date in string format.
-
-    Returns:
-        True if the date is valid, False otherwise.
-    """
-    try:
-        datetime.strptime(date_string, "%Y-%m-%d")
-    except ValueError:
-        return False
-    else:
-        return True
 
 
 def get_valid_dates() -> list[str]:
     """Get valid dates from user input until '0' is entered.
 
+    Raises:
+        ValueError: When the date is invalid.
+
     Returns:
-        list of valid dates in string format YYYY-MM-DD.
+        List of valid dates in string format YYYY-MM-DD.
     """
-    date: str = ""
+    date_input: str = ""
     valid_dates: list[str] = []
-    while date != "0":
+
+    while date_input != "0":
+        date_input = input(INPUT_DATE_PROMPT)
+        if date_input == "0":
+            break
+
         try:
-            date = input("Enter dates in YYYY-MM-DD format : (0 to stop) ")
-            if date == "0":
-                break
-            elif validate_date(date):
-                valid_dates.append(date)
-            else:
-                print("Invalid date format. Please try again.")
-        except KeyboardInterrupt:
-            raise
+            datetime.fromisoformat(date_input).date()
+        except ValueError:
+            print(ERROR_INVALID_DATE_FORMAT)
+        else:
+            valid_dates.append(date_input)
+
     return valid_dates
 
 
@@ -73,12 +74,16 @@ if __name__ == "__main__":
     try:
         dates = get_valid_dates()
         earliest, latest, unique = get_date_analytics(dates)
-        print("earliest Date: ", datetime.strftime(earliest, "%Y-%m-%d"))
-        print("Latest Date: ", datetime.strftime(latest, "%Y-%m-%d"))
-        print("Unique Dates: ", [datetime.strftime(date, "%Y-%m-%d") for date in unique])
-    except ValueError as value_ex:
-        print(f"Value_error : {value_ex}")
+
+        print(PRINT_EARLIEST, earliest)
+        print(PRINT_LATEST, latest)
+        print(PRINT_UNIQUE, [d.isoformat() for d in unique])
+
     except KeyboardInterrupt:
-        print("Program was interrupted.")
+        print(INTERRUPT_MESSAGE)
+
+    except ValueError as e:
+        print(ERROR_PREFIX.format(e))
+
     except Exception as ex:
-        print(f"Error : {ex}")
+        print(ERROR_PREFIX.format(ex))
