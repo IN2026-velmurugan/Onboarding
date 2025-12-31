@@ -5,7 +5,6 @@ from pathlib import Path
 
 from src.assignment_7.constants import (
     CSV_FORMAT_INFO,
-    CSV_INPUT_PROMPT,
     DATE_WORKDAY_RESULT,
     DEVELOPER_MENTEES_HEADER,
     DEVELOPER_NO_MENTEES,
@@ -39,8 +38,6 @@ from src.assignment_7.constants import (
     MAIN_MENU,
     MENTOR_ASSIGNED,
     NEGATIVE_ID_ERROR,
-    NEGATIVE_SALARY_ERROR,
-    SALARY_SHOULD_BE_POSITIVE,
     SALARY_UPDATED_SUCCESS,
 )
 from src.assignment_7.employee import Employee
@@ -88,35 +85,14 @@ def create_employee_from_string(str_input: str) -> Employee:
         raise ValueError(INVALID_EMPLOYEE_POSITION.format(position))
 
 
-def update_employee_salary(employee_id: int, new_salary: float) -> None:
-    """Update the salary of an existing employee.
-
-    Locate the employee using the employee ID and update the salary
-    if the employee exists.
-
-    Args:
-        employee_id: Employee identifier.
-        new_salary: Updated salary value.
-
-    Returns:
-        None.
-    """
-    if employee_id not in Employee.employee_data:
-        LOGGER.warning(EMPLOYEE_ID_NOT_FOUND)
-        return
-
-    Employee.employee_data[employee_id].salary = new_salary
-    LOGGER.info(SALARY_UPDATED_SUCCESS)
-
-
 def menu() -> None:
     """Display the main menu of the Employee Management System."""
-    LOGGER.info(MAIN_MENU)
+    print(MAIN_MENU)
 
 
 def display_menu() -> None:
     """Display employee display options."""
-    LOGGER.info(DISPLAY_MENU)
+    print(DISPLAY_MENU)
 
 
 def add_employee() -> None:
@@ -134,7 +110,7 @@ def add_employee() -> None:
             LOGGER.warning(ID_SHOULD_BE_POSITIVE)
             return
 
-        if employee_id in Manager.employee_data:
+        if int(employee_id) in Employee.employee_data:
             LOGGER.warning(EMPLOYEE_ALREADY_EXISTS)
             return
 
@@ -150,45 +126,50 @@ def add_employee() -> None:
             LOGGER.warning(INVALID_EMPLOYEE_POSITION_INPUT)
             return
 
-        if float(employee_salary) <= 0.0:
-            LOGGER.warning(SALARY_SHOULD_BE_POSITIVE)
-            return
-
         create_employee_from_string(
             (",").join([employee_id, employee_name, employee_position, employee_salary])
         )
 
-    except ValueError:
-        LOGGER.error(INVALID_GENERIC_INPUT)
+    except ValueError as e:
+        LOGGER.error(INVALID_GENERIC_INPUT.format(e))
 
 
 def add_employee_from_csv_string() -> None:
     """Add a new employee using CSV-formatted input."""
     LOGGER.info(CSV_FORMAT_INFO)
-    instance_str = input(CSV_INPUT_PROMPT).strip()
+    instance_str = input("Input: ").strip()
     new_emp = create_employee_from_string(instance_str)
     if new_emp:
         LOGGER.info(EMPLOYEE_CREATED)
 
 
-def update_employee() -> None:
+def update_employee_salary() -> None:
     """Update the salary of an existing employee."""
     try:
         employee_id = int(input(ENTER_EMPLOYEE_ID_EDIT))
         new_salary = float(input(ENTER_NEW_SALARY))
-
-        if employee_id <= 0:
-            LOGGER.warning(NEGATIVE_ID_ERROR)
-            return
-
-        if new_salary <= 0.0:
-            LOGGER.warning(NEGATIVE_SALARY_ERROR)
-            return
-
     except ValueError:
         raise ValueError(INVALID_ID_SALARY)
-    else:
-        update_employee_salary(employee_id, new_salary)
+
+    if employee_id <= 0:
+        LOGGER.warning(NEGATIVE_ID_ERROR)
+        return
+
+    if new_salary <= 0:
+        LOGGER.warning(INVALID_ID_SALARY)
+        return
+
+    if employee_id not in Employee.employee_data:
+        LOGGER.warning(EMPLOYEE_ID_NOT_FOUND)
+        return
+
+    try:
+        Employee.employee_data[employee_id].salary = new_salary
+    except ValueError:
+        LOGGER.warning(INVALID_ID_SALARY)
+        return
+
+    LOGGER.info(SALARY_UPDATED_SUCCESS)
 
 
 def display_all_employee() -> None:
@@ -213,7 +194,7 @@ def get_weekday() -> None:
     """Determine whether a given date falls on a workday."""
     date = input(ENTER_DATE).strip()
     try:
-        LOGGER.info(DATE_WORKDAY_RESULT.format(date, Employee.is_workday(date)))
+        print(DATE_WORKDAY_RESULT.format(date, Employee.is_workday(date)))
     except ValueError as error:
         raise ValueError(str(error)) from error
 
@@ -253,9 +234,9 @@ def show_intern_mentor() -> None:
 
         mentor_name = intern.get_mentor_name()
         if mentor_name is None:
-            LOGGER.info(INTERN_NO_MENTOR.format(intern.name))
+            print(INTERN_NO_MENTOR.format(intern.name))
         else:
-            LOGGER.info(INTERN_MENTOR_INFO.format(intern.name, mentor_name))
+            print(INTERN_MENTOR_INFO.format(intern.name, mentor_name))
 
     except ValueError:
         LOGGER.error(INVALID_GENERIC_INPUT)
@@ -273,12 +254,12 @@ def show_developer_mentees() -> None:
 
         mentees = developer.get_mentees()
         if not mentees:
-            LOGGER.info(DEVELOPER_NO_MENTEES.format(developer.name))
+            print(DEVELOPER_NO_MENTEES.format(developer.name))
             return
 
-        LOGGER.info(DEVELOPER_MENTEES_HEADER.format(developer.name))
+        print(DEVELOPER_MENTEES_HEADER.format(developer.name))
         for mentee in mentees:
-            LOGGER.info(mentee)
+            print(mentee)
 
     except ValueError:
         LOGGER.error(INVALID_GENERIC_INPUT)
