@@ -23,7 +23,7 @@ class Manager(Employee):
     def display_developers(cls) -> None:
         """Display all developers in the employee registry."""
         developer_list: list[Developer] = [
-            dev for _dev_id, dev in cls.employee_data.items() if isinstance(dev, Developer)
+            dev for dev in cls.employee_data.values() if isinstance(dev, Developer)
         ]
 
         if not developer_list:
@@ -38,7 +38,7 @@ class Manager(Employee):
     def display_interns(cls) -> None:
         """Display all interns in the employee registry."""
         intern_list: list[Intern] = [
-            intern for _intern_id, intern in cls.employee_data.items() if isinstance(intern, Intern)
+            intern for intern in cls.employee_data.values() if isinstance(intern, Intern)
         ]
 
         if not intern_list:

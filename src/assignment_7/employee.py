@@ -23,7 +23,7 @@ class Employee:
         self.employee_id = employee_id
         self.name = name
         self.position = position
-        self.__salary = salary
+        self.salary = salary
         Employee.employee_data[self.employee_id] = self
 
     def __str__(self) -> str:
@@ -36,7 +36,7 @@ class Employee:
             f"Employee Id: {self.employee_id}\n"
             f"Name: {self.name}\n"
             f"Position: {self.position}\n"
-            f"Salary: {self.__salary}"
+            f"Salary: {self.salary}"
         )
 
     @property
@@ -55,9 +55,12 @@ class Employee:
         Args:
             salary: New salary value.
 
-        Returns:
-            None.
+        Raises:
+            ValueError: If the salary is zero or negative.
         """
+        if salary <= 0.0:
+            raise ValueError("Salary should be positive.")
+
         self.__salary = salary
 
     @classmethod
