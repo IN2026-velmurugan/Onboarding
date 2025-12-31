@@ -3,32 +3,52 @@
 Matrix = list[list[float]]
 
 
-def matrix_addition(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
+def add_matrices(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
     """Perform matrix addition.
 
     Args:
         matrix_a: First matrix to be added with.
         matrix_b: Second matrix to be added.
 
+    Raises:
+        ValueError: When the matrices dimension mismatch.
+
     Returns:
         Addition of two matrix.
     """
+    if len(matrix_a) != len(matrix_b) or len(matrix_a[0]) != len(matrix_b[0]):
+        raise ValueError("Matrices must have same dimensions")
     return [
         [matrix_a[i][j] + matrix_b[i][j] for j in range(len(matrix_a[0]))]
         for i in range(len(matrix_a))
     ]
 
 
-def matrix_multiplication(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
+def mul_matrices(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
     """Perform matrix multiplication.
 
     Args:
         matrix_a: First matrix to be multiplied with.
         matrix_b: Second matrix to be multiplied.
 
+    Raises:
+        ValueError: When the matrices dimension mismatch or matrix is not rectangular.
+
     Returns:
         Multiplication of two matrix.
     """
+    if any(len(row) != len(matrix_a[0]) for row in matrix_a):
+        raise ValueError("Matrix A is not rectangular")
+    if any(len(row) != len(matrix_b[0]) for row in matrix_b):
+        raise ValueError("Matrix B is not rectangular")
+
+    if len(matrix_a[0]) != len(matrix_b):
+        raise ValueError(
+            "Matrix dimensions do not match for multiplication "
+            f"({len(matrix_a)}x{len(matrix_a[0])} cannot be multiplied by "
+            f"{len(matrix_b)}x{len(matrix_b[0])})"
+        )
+
     result: Matrix = [[0 for _ in range(len(matrix_b[0]))] for _ in range(len(matrix_a))]
     for i in range(len(matrix_a)):
         for j in range(len(matrix_b[0])):

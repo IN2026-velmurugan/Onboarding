@@ -20,22 +20,22 @@ def is_float(value: str) -> bool:
 
 
 def remove_nulls(data: list[Any]) -> list[Any]:
-    """Remove the None value from the list.
+    """Filter out `None` from the list.
 
     Args:
-        data: list in which the None values to be removed.
+        data: List to filter out `None`.
 
     Returns:
-        Data without None values.
+        Data without `None` values.
     """
     return list(filter(lambda x: x is not None, data))
 
 
 def remove_duplicates(data: list[Any]) -> list[Any]:
-    """Remove the duplicate element from the list.
+    """Filter out duplicate element from the list.
 
     Args:
-        data: list in which the duplicates should be removed.
+        data: List to filter out duplicates.
 
     Returns:
         List without duplicates.
@@ -44,7 +44,7 @@ def remove_duplicates(data: list[Any]) -> list[Any]:
 
 
 def normalize_whitespace(sentence: str) -> str:
-    """Normalize the string by replacing the "tab" and "newline" characters to space.
+    """Normalize the string by replacing the `tab` and `newline` characters to space.
 
     Args:
         text: The string to be normalized.

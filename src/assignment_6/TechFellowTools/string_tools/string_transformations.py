@@ -1,4 +1,4 @@
-"""Functions for performing the string transformations."""
+"""Functions to perform the string transformations."""
 
 
 def reverse_words(sentence: str) -> str:
@@ -7,9 +7,15 @@ def reverse_words(sentence: str) -> str:
     Args:
         sentence: The sentence for which the words need to be reversed.
 
+    Raises:
+        ValueError: When the input sentence is empty.
+
     Returns:
         The reversed sentence.
     """
+    if not sentence.strip():
+        raise ValueError("Sentence must not be empty")
+
     return " ".join(word[::-1] for word in sentence.split())
 
 
@@ -19,9 +25,15 @@ def camel_to_snake(sentence: str) -> str:
     Args:
         sentence: The camel case sentence.
 
+    Raises:
+        ValueError: When the input sentence is empty.
+
     Returns:
         The snake case sentence.
     """
+    if not sentence.strip():
+        raise ValueError("Sentence must not be empty")
+
     result = ""
     for char in sentence:
         if char.isupper():
@@ -37,9 +49,15 @@ def remove_punctuation(sentence: str) -> str:
     Args:
         sentence: Sentence for which the punctuations should be removed.
 
+    Raises:
+        ValueError: When the input sentence is empty.
+
     Returns:
         Sentence with all the punctuations removed.
     """
+    if not sentence.strip():
+        raise ValueError("Sentence must not be empty")
+
     return "".join(
         char for char in sentence if char in range(65, 91) or char in range(97, 123) or char == " "
     )
@@ -51,9 +69,15 @@ def title_case(sentence: str) -> str:
     Args:
         sentence: Text for which the case to be converted.
 
+    Raises:
+        ValueError: When the input sentence is empty.
+
     Returns:
         The title case representation of the given sentence.
     """
+    if not sentence.strip():
+        raise ValueError("Sentence must not be empty")
+
     return " ".join(word.capitalize() for word in sentence.split())
 
 
@@ -63,9 +87,15 @@ def compress_string(sentence: str) -> str:
     Args:
         sentence: Text to be compressed.
 
+    Raises:
+        ValueError: When the input sentence is empty.
+
     Returns:
         Compressed string (e.g., "aaabb" → "a3b2").
     """
+    if not sentence.strip():
+        raise ValueError("Sentence must not be empty")
+
     if not sentence:
         return ""
     compressed = []

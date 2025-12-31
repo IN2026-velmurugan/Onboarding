@@ -9,9 +9,15 @@ def word_frequency(sentence: str) -> dict[str, int]:
     Args:
         sentence: The sentence for which the word frequency to be found.
 
+    Raises:
+        ValueError: When the input sentence is empty.
+
     Returns:
         Dictionary containing the word and its frequency.
     """
+    if not sentence.strip():
+        raise ValueError("Sentence must not be empty")
+
     words = sentence.lower().split()
     return dict(Counter(words))
 
@@ -22,9 +28,15 @@ def most_common_word(sentence: str) -> str:
     Args:
         sentence: The sentence for which the most common repeated word to be found.
 
+    Raises:
+        ValueError: When the input sentence is empty.
+
     Returns:
         The most repeated word.
     """
+    if not sentence.strip():
+        raise ValueError("Sentence must not be empty")
+
     freq = word_frequency(sentence)
     return max(freq, key=lambda k: freq[k])
 
@@ -35,9 +47,15 @@ def lexical_diversity(sentence: str) -> float:
     Args:
         sentence: The sentence for which the lexical diversity should be identified.
 
+    Raises:
+        ValueError: When the input sentence is empty.
+
     Returns:
         Lexical diversity of the given sentence.
     """
+    if not sentence.strip():
+        raise ValueError("Sentence must not be empty")
+
     words = sentence.split()
     return len(set(words)) / len(words)
 
@@ -48,22 +66,34 @@ def count_sentences(sentence: str) -> int:
     Args:
         sentence: The sentence for which the sentence count to be found.
 
+    Raises:
+        ValueError: When the input sentence is empty.
+
     Returns:
         Count of the sentence.
     """
+    if not sentence.strip():
+        raise ValueError("Sentence must not be empty")
+
     return sum(sentence.count(p) for p in ".!?")
 
 
-def ngram_frequency(sentence: str, word_count: int) -> dict[str, int]:
+def ngram_frequency(sentence: str, word_count: int = 1) -> dict[str, int]:
     """Calculate the frequency count of n-grams within a given sentence.
 
     Args:
         sentence: The sentence for which the n-gram frequency to be found.
-        word_count: The word count("n" in n-grams).
+        word_count: The word count("n" in n-grams), defaults to 1.
+
+    Raises:
+        ValueError: When the input sentence is empty.
 
     Returns:
         The n-gram frequency of the sentence.
     """
+    if not sentence.strip():
+        raise ValueError("Sentence must not be empty")
+
     words = sentence.split()
     ngrams = [" ".join(words[i : i + word_count]) for i in range(len(words) - word_count + 1)]
     return dict(Counter(ngrams))
