@@ -126,6 +126,9 @@ def add_employee() -> None:
     """
     try:
         employee_id = input(ENTER_EMPLOYEE_ID_CREATE)
+        employee_name = input(ENTER_EMPLOYEE_NAME).strip()
+        employee_position = input(ENTER_EMPLOYEE_POSITION).strip()
+        employee_salary = input(ENTER_EMPLOYEE_SALARY)
 
         if int(employee_id) <= 0:
             LOGGER.warning(ID_SHOULD_BE_POSITIVE)
@@ -134,10 +137,6 @@ def add_employee() -> None:
         if employee_id in Manager.employee_data:
             LOGGER.warning(EMPLOYEE_ALREADY_EXISTS)
             return
-
-        employee_name = input(ENTER_EMPLOYEE_NAME).strip()
-        employee_position = input(ENTER_EMPLOYEE_POSITION).strip()
-        employee_salary = input(ENTER_EMPLOYEE_SALARY)
 
         if not employee_name:
             LOGGER.warning(EMPLOYEE_NAME_EMPTY)

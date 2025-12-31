@@ -8,6 +8,11 @@ INVALID_ID_SALARY = "Invalid id or salary, ID and salary must be integer."
 INVALID_DISPLAY_CHOICE = "Enter a valid choice."
 
 TOTAL_EMPLOYEES = "Total number of employees: {}"
+ERROR_INVALID_OPERATION = "Invalid operation : {}"
+INFO_INTERRUPTED = "Application interrupted by user."
+ERROR_UNEXPECTED = "Unexpected application error"
+ERROR_ATTEMPT_EXCEEDED = "Attempt exceeded. Please try again."
+
 
 # ----------- Input Prompts -----------
 
