@@ -1,5 +1,6 @@
 """Functions to analyse the texts based on words."""
 
+import re
 from collections import Counter
 
 
@@ -75,7 +76,7 @@ def count_sentences(sentence: str) -> int:
     if not sentence.strip():
         raise ValueError("Sentence must not be empty")
 
-    return sum(sentence.count(p) for p in ".!?")
+    return len(re.findall(r"[.!?](?:\s|$)", sentence))
 
 
 def ngram_frequency(sentence: str, word_count: int = 1) -> dict[str, int]:
