@@ -2,13 +2,12 @@
 
 from datetime import datetime, date
 
-# constants
-ERROR_EMPTY_DATE_LIST = "Date list cannot be empty"
+ERROR_EMPTY_DATE_LIST = "Date list cannot be empty."
 ERROR_INVALID_DATE_FORMAT = "Invalid date format. Please try again."
-ERROR_PREFIX = "Error : {}"
-INPUT_DATE_PROMPT = "Enter dates in YYYY-MM-DD format : (0 to stop) "
+ERROR_PREFIX = "Error : {}."
+INPUT_DATE_PROMPT = "Enter dates in YYYY-MM-DD format : (0 to stop)."
 INTERRUPT_MESSAGE = "Program was interrupted."
-PRINT_EARLIEST = "earliest Date: "
+PRINT_EARLIEST = "Earliest Date: "
 PRINT_LATEST = "Latest Date: "
 PRINT_UNIQUE = "Unique Dates: "
 

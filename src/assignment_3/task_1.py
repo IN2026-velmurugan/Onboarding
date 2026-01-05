@@ -1,18 +1,17 @@
 """Functions to evaluate infix expressions and converting to postfix."""
 
-# Constants
 DIGITS = "0123456789"
 ERROR_DIVISION_BY_ZERO = "Division by zero is not allowed."
 ERROR_INVALID_CHAR = (
-    "Invalid expression the expression should contain only "
-    '`0123456789+-*/^()`, but found "{char}"'
+    "Invalid expression the expression should contain only"
+    '`0123456789+-*/^()`, but found "{char}".'
 )
-ERROR_INVALID_EXPRESSION_SYNTAX = "Invalid expression syntax"
-ERROR_MISMATCHED_PARENTHESES = "Mismatched parentheses"
-ERROR_UNKNOWN_OPERATOR = "Unknown operator: {operator}"
+ERROR_INVALID_EXPRESSION_SYNTAX = "Invalid expression."
+ERROR_MISMATCHED_PARENTHESES = "Mismatched parentheses."
+ERROR_UNKNOWN_OPERATOR = "Unknown operator: {operator}."
 INPUT_PROMPT = "Enter a valid expression `0123456789+-*/^()`: \n"
 INTERRUPT_MESSAGE = "Program interrupted by the user, shutting down!"
-UNEXPECTED_ERROR = "Unexpected error: {error}"
+UNEXPECTED_ERROR = "Unexpected error: {error}."
 VALID_CHARS = "0123456789+-*/^()"
 
 
