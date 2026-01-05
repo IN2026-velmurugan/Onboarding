@@ -4,17 +4,14 @@ import os
 from pathlib import Path
 
 # Constants
-INPUT_PATH_PROMPT = "Enter the path: "
-
-ERROR_PATH_NOT_EXIST = "Path does not exist"
 ERROR_PATH_NOT_DIRECTORY = "Path is not a directory"
-
+ERROR_PATH_NOT_EXIST = "Path does not exist"
+FILESYSTEM_ERROR_PREFIX = "Filesystem error: {}"
+INPUT_ERROR_PREFIX = "Input error: {}"
+INPUT_PATH_PROMPT = "Enter the path: "
+INTERRUPT_MESSAGE = "Program was interrupted."
 PRINT_OS_COUNT = "Total number of files using os: {}"
 PRINT_PATHLIB_COUNT = "Total number of files using pathlib: {}"
-
-INTERRUPT_MESSAGE = "Program was interrupted."
-INPUT_ERROR_PREFIX = "Input error: {}"
-FILESYSTEM_ERROR_PREFIX = "Filesystem error: {}"
 
 
 def navigate_system_using_os(path: Path) -> int:

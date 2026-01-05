@@ -5,40 +5,24 @@ from datetime import datetime
 from typing import Any, Optional
 
 # Constants
+DATABASE_ERROR_PREFIX = "Database error:"
 DB_FILE = "database.json"
 
-TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
-
-# Operation names
-OP_CREATE = "CREATE"
-OP_READ = "READ"
-OP_UPDATE = "UPDATE"
-OP_DELETE = "DELETE"
-
-# Error messages
 ERROR_CREATE_DATA_MISSING = "Data must be provided for CREATE operation."
-ERROR_UPDATE_DATA_MISSING = "Data and condition must be provided for UPDATE operation."
-ERROR_DELETE_CONDITION_MISSING = "Condition must be provided for DELETE operation."
 ERROR_DB_FILE_NOT_FOUND = "Database file not found."
-ERROR_UPDATE_FAILED = "An error occurred while updating the database."
+ERROR_DELETE_CONDITION_MISSING = "Condition must be provided for DELETE operation."
 ERROR_DELETE_FAILED = "An error occurred while deleting from the database."
 ERROR_INVALID_JSON_INPUT = "Invalid JSON input"
-
-# Success messages
-MSG_RECORD_CREATED = "Record created successfully."
-MSG_RECORDS_UPDATED = "{} record(s) updated successfully."
-MSG_RECORDS_DELETED = "{} record(s) deleted successfully."
-
-# Input / prompt messages
-PROMPT_JSON_INPUT = "JSON > "
-PROMPT_CREATE_JSON = "Enter a JSON object:"
-PROMPT_UPDATE_CONDITION = "\nEnter UPDATE condition"
-PROMPT_UPDATE_VALUES = "\nEnter new values"
-PROMPT_DELETE_CONDITION = "\nEnter DELETE condition"
+ERROR_UPDATE_DATA_MISSING = "Data and condition must be provided for UPDATE operation."
+ERROR_UPDATE_FAILED = "An error occurred while updating the database."
 
 EXAMPLE_JSON_FULL = 'Example: {"id":2,"name":"res","dict":{"nested":"value","list":[1,2,3]}}'
 EXAMPLE_JSON_ID = 'Example: {"id": 1}'
 EXAMPLE_JSON_UPDATE = 'Example: {"name": "Jane"}'
+
+EXIT_MESSAGE = "\nOperation cancelled by user"
+
+INPUT_ERROR_PREFIX = "Input error:"
 
 MENU_TEXT = """
 1 - To Create JSON line
@@ -48,13 +32,24 @@ MENU_TEXT = """
 0 - To Exit
 """
 
-PROMPT_MENU_CHOICE = "Enter your choice (0-4):"
 MSG_INVALID_CHOICE = "Invalid choice. Try again."
+MSG_RECORD_CREATED = "Record created successfully."
+MSG_RECORDS_DELETED = "{} record(s) deleted successfully."
+MSG_RECORDS_UPDATED = "{} record(s) updated successfully."
 
-# Exception output
-INPUT_ERROR_PREFIX = "Input error:"
-DATABASE_ERROR_PREFIX = "Database error:"
-EXIT_MESSAGE = "\nOperation cancelled by user"
+OP_CREATE = "CREATE"
+OP_DELETE = "DELETE"
+OP_READ = "READ"
+OP_UPDATE = "UPDATE"
+
+PROMPT_CREATE_JSON = "Enter a JSON object:"
+PROMPT_DELETE_CONDITION = "\nEnter DELETE condition"
+PROMPT_JSON_INPUT = "JSON > "
+PROMPT_MENU_CHOICE = "Enter your choice (0-4):"
+PROMPT_UPDATE_CONDITION = "\nEnter UPDATE condition"
+PROMPT_UPDATE_VALUES = "\nEnter new values"
+
+TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 
 def time_stamp() -> str:
