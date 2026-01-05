@@ -2,8 +2,8 @@
 
 from typing import Iterator
 
-import requests  # type : [ignore]
-from bs4 import BeautifulSoup, Tag  # type : [ignore]
+import requests
+from bs4 import BeautifulSoup, Tag
 
 
 def is_valid_link(tag: Tag) -> bool:
