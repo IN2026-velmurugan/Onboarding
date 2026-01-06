@@ -4,19 +4,15 @@ import json
 from pathlib import Path
 from typing import Any
 
-# Constants
-JSON_FILE_NOT_FOUND = "JSON file not found: {}"
-JSON_ROOT_NOT_LIST = "JSON root must be a list of objects"
-INVALID_JSON_ERROR = "Invalid JSON in file {}: {}"
-
-INPUT_JSON_PATH_PROMPT = "Enter the JSON file path: "
-
-FILE_ERROR_PREFIX = "File error:"
 DATA_ERROR_PREFIX = "Data error:"
-INTERRUPT_MESSAGE = "Operation cancelled by user"
-
-FILE_OPEN_MODE = "r"
 FILE_ENCODING = "utf-8"
+FILE_ERROR_PREFIX = "File error:"
+FILE_OPEN_MODE = "r"
+INPUT_JSON_PATH_PROMPT = "Enter the JSON file path: "
+INTERRUPT_MESSAGE = "Operation cancelled by user."
+INVALID_JSON_ERROR = "Invalid JSON in file {}: {}."
+JSON_FILE_NOT_FOUND = "JSON file not found: {}."
+JSON_ROOT_NOT_LIST = "JSON root must be a list of objects."
 KEY_SEPARATOR = "_"
 
 

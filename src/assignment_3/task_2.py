@@ -2,18 +2,14 @@
 
 from datetime import datetime, date
 
-# constants
-ERROR_EMPTY_DATE_LIST = "Date list cannot be empty"
+ERROR_EMPTY_DATE_LIST = "Date list cannot be empty."
 ERROR_INVALID_DATE_FORMAT = "Invalid date format. Please try again."
-
-INPUT_DATE_PROMPT = "Enter dates in YYYY-MM-DD format : (0 to stop) "
-
-PRINT_EARLIEST = "earliest Date: "
+ERROR_PREFIX = "Error : {}."
+INPUT_DATE_PROMPT = "Enter dates in YYYY-MM-DD format : (0 to stop)."
+INTERRUPT_MESSAGE = "Program was interrupted."
+PRINT_EARLIEST = "Earliest Date: "
 PRINT_LATEST = "Latest Date: "
 PRINT_UNIQUE = "Unique Dates: "
-
-ERROR_PREFIX = "Error : {}"
-INTERRUPT_MESSAGE = "Program was interrupted."
 
 
 def get_date_analytics(
