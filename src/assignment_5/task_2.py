@@ -60,17 +60,27 @@ def extract_link(url: str) -> dict[str, str]:
         return content
 
 
+def main():
+    """Start the script."""
+    count = 0
+    while count < 5:
+        try:
+            url = input("Enter the URL to scrap the link : ").replace('"', "")
+            if not url:
+                raise ValueError("Cannot scrap the empty URL!!!")
+            link_map: dict[str, str] = extract_link(url)
+            for k in link_map:
+                print(f"Text : {k} & Link : {link_map.get(k)}")
+            return
+        except ValueError as e:
+            print(f"Application error : {e}")
+        except RuntimeError as e:
+            print(f"Error while scrapping the site : {e}")
+        count += 1
+
+
 if __name__ == "__main__":
     try:
-        url = input("Enter the URL to scrap the link : ").replace('"', "")
-        if not url:
-            raise ValueError("Cannot scrap the empty URL!!!")
-        link_map: dict[str, str] = extract_link(url)
-        for k in link_map:
-            print(f"Text : {k} & Link : {link_map.get(k)}")
+        main()
     except KeyboardInterrupt:
         print("Program inputted shutting down the application.")
-    except ValueError as e:
-        print(f"Application error : {e}")
-    except RuntimeError as e:
-        print(f"Error while scrapping the site : {e}")
