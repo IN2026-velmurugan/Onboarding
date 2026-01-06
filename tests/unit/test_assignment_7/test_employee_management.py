@@ -80,6 +80,8 @@ def test__create_employee_from_string__valid_input__returns_employee_instance(
         ("", ValueError, None),
         ("abc,Alice,manager,80000", ValueError, None),
         ("1,Alice,manager,abc", ValueError, None),
+        ("1,Alice,manager,-1000", ValueError, None),
+        # ("-1,Alice,manager,1000", ValueError, None),
     ],
 )
 def test__create_employee_from_string__invalid_input__throw_exception(

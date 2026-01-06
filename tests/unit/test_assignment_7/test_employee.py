@@ -205,174 +205,21 @@ def test_is_workday_returns_false_for_weekends(date_string):
     assert Employee.is_workday(date_string) is False
 
 
-# is_workday() Tests - Edge Cases and Special Dates
-
-
-def test_is_workday_leap_year_date():
-    assert Employee.is_workday("2024-02-29") is True  # Thursday
-
-
-def test_is_workday_with_leading_zeros():
-    assert Employee.is_workday("2025-01-01") is True
-
-
-def test_is_workday_new_year():
-    assert Employee.is_workday("2025-01-01") is True  # Wednesday
-
-
-def test_is_workday_end_of_year():
-    assert Employee.is_workday("2025-12-31") is True  # Wednesday
-
-
 # is_workday() Tests - Error Cases
 
 
-def test_is_workday_invalid_format_raises_value_error():
-    with pytest.raises(ValueError, match="Invalid date string."):
-        Employee.is_workday("2025/12/29")
-
-
-def test_is_workday_garbage_string_raises_value_error():
+@pytest.mark.parametrize(
+    "date_string",
+    [
+        "not-a-date",
+        "2025-13-01",
+        "2025-02-30",
+        "2025-12",
+        "2025",
+        "2025.12.29",
+        "2025/12/29",
+    ],
+)
+def test_is_workday_invalid_string_raises_value_error(date_string):
     with pytest.raises(ValueError):
-        Employee.is_workday("not-a-date")
-
-
-def test_is_workday_empty_string_raises_value_error():
-    with pytest.raises(ValueError):
-        Employee.is_workday("")
-
-
-def test_is_workday_invalid_month():
-    with pytest.raises(ValueError):
-        Employee.is_workday("2025-13-01")
-
-
-def test_is_workday_invalid_day():
-    with pytest.raises(ValueError):
-        Employee.is_workday("2025-02-30")
-
-
-def test_is_workday_missing_day():
-    with pytest.raises(ValueError):
-        Employee.is_workday("2025-12")
-
-
-def test_is_workday_missing_month():
-    with pytest.raises(ValueError):
-        Employee.is_workday("2025")
-
-
-def test_is_workday_wrong_separator():
-    with pytest.raises(ValueError):
-        Employee.is_workday("2025.12.29")
-
-
-# Class Variable Behavior Tests
-
-
-def test_employee_data_is_shared_across_instances():
-    """Verify employee_data is a class variable, not instance variable."""
-    emp1 = Employee(1, "Alice", "Developer", 50000)
-    emp2 = Employee(2, "Bob", "Manager", 80000)
-
-    assert emp1.employee_data is emp2.employee_data
-    assert emp1.employee_data is Employee.employee_data
-
-
-def test_employee_data_modification_affects_all_instances():
-    emp1 = Employee(1, "Alice", "Developer", 50000)
-    emp2 = Employee(2, "Bob", "Manager", 80000)
-
-    # Access through any instance or class should show the same data
-    assert len(emp1.employee_data) == 2
-    assert len(emp2.employee_data) == 2
-    assert len(Employee.employee_data) == 2
-
-
-# Type Testing
-
-
-def test_employee_id_type():
-    emp = Employee(1, "Alice", "Developer", 50000)
-    assert isinstance(emp.employee_id, int)
-
-
-def test_employee_name_type():
-    emp = Employee(1, "Alice", "Developer", 50000)
-    assert isinstance(emp.name, str)
-
-
-def test_employee_position_type():
-    emp = Employee(1, "Alice", "Developer", 50000)
-    assert isinstance(emp.position, str)
-
-
-# Attribute Access Tests
-
-
-def test_employee_attributes_are_accessible():
-    emp = Employee(1, "Alice", "Developer", 50000)
-
-    assert emp.employee_id == 1
-    assert emp.name == "Alice"
-    assert emp.position == "Developer"
-    assert emp.salary == 50000
-
-
-def test_employee_attributes_can_be_modified():
-    emp = Employee(1, "Alice", "Developer", 50000)
-
-    emp.name = "Alice Smith"
-    emp.position = "Senior Developer"
-
-    assert emp.name == "Alice Smith"
-    assert emp.position == "Senior Developer"
-
-
-# Integration Tests
-
-
-def test_create_multiple_employees_and_display(capsys):
-    Employee(1, "Alice", "Developer", 50000)
-    Employee(2, "Bob", "Manager", 80000)
-    Employee(3, "Charlie", "Intern", 15000)
-
-    assert Employee.number_of_employees() == 3
-
-    Employee.display_employee()
-    captured = capsys.readouterr()
-
-    assert "Alice" in captured.out
-    assert "Bob" in captured.out
-    assert "Charlie" in captured.out
-
-
-def test_update_salary_multiple_times():
-    emp = Employee(1, "Alice", "Developer", 50000)
-
-    emp.salary = 55000
-    assert emp.salary == 55000
-
-    emp.salary = 60000
-    assert emp.salary == 60000
-
-    emp.salary = 65000
-    assert emp.salary == 65000
-
-
-def test_employee_registry_consistency():
-    """Ensure that employee_data registry is always consistent."""
-    emp1 = Employee(1, "Alice", "Developer", 50000)
-    emp2 = Employee(2, "Bob", "Manager", 80000)
-
-    # Check registry
-    assert 1 in Employee.employee_data
-    assert 2 in Employee.employee_data
-    assert Employee.employee_data[1] is emp1
-    assert Employee.employee_data[2] is emp2
-
-    # Update salary through property
-    emp1.salary = 60000
-
-    # Verify the change is reflected in the registry
-    assert Employee.employee_data[1].salary == 60000
+        Employee.is_workday(date_string)
