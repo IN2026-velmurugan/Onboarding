@@ -7,6 +7,7 @@ from src.assignment_6.TechFellowTools.data_tools import read_csv
 from src.assignment_6.TechFellowTools.math_tools import matrix_operations as mo
 from src.assignment_6.TechFellowTools.string_tools.string_transformations import compress_string
 
+ERROR_ATTEMPT_EXCEEDED = "Attempt exceeded. Please try again."
 ERROR_FILE_OPERATION = "File error : {}"
 ERROR_INVALID_OPERATION = "Invalid operation : {}"
 
@@ -45,11 +46,6 @@ PROMPT_NUMBERS = "Enter numbers separated by space: "
 PROMPT_STRING = "Enter a string to compress: "
 
 UNKNOWN_ERROR = "Unknown error occurred in the application shutting down. {}"
-
-
-def show_menu() -> None:
-    """Display menu for the user for demo."""
-    print(MENU_TEXT)
 
 
 def demo_math() -> None:
@@ -91,32 +87,49 @@ def demo_csv() -> None:
     print(read_csv(path))
 
 
-def main() -> None:
-    """Main menu operation based on the user choice."""
-    choice = ""
-    try:
-        while choice != "0":
-            try:
-                show_menu()
-                choice = input(PROMPT_MENU_CHOICE).strip()
+menu_action = {
+    1: demo_math,
+    2: demo_matrix,
+    3: demo_string,
+    4: demo_csv,
+}
 
-                if choice == "0":
-                    print(MSG_EXIT)
-                    break
-                elif choice == "1":
-                    demo_math()
-                elif choice == "2":
-                    demo_matrix()
-                elif choice == "3":
-                    demo_string()
-                elif choice == "4":
-                    demo_csv()
-                else:
-                    print(MSG_INVALID_CHOICE)
+
+def start_tool_demo() -> None:
+    """Main menu operation to demonstrate the the `TechFellowTools` package."""
+    choice = -1
+    count = 0
+    try:
+        while choice != 0 and count < 5:
+            print(MENU_TEXT)
+            try:
+                choice = int(input(PROMPT_MENU_CHOICE))
+            except ValueError as e:
+                count += 1
+                print(ERROR_INVALID_OPERATION.format(e))
+                continue
+
+            if choice == 0:
+                print(MSG_EXIT)
+                break
+
+            action = menu_action.get(choice)
+            if not action:
+                count += 1
+                print(MSG_INVALID_CHOICE)
+                continue
+
+            try:
+                action()
             except ValueError as e:
                 print(ERROR_INVALID_OPERATION.format(e))
             except FileExistsError as e:
                 print(ERROR_FILE_OPERATION.format(e))
+        else:
+            if count == 5:
+                raise ValueError(ERROR_ATTEMPT_EXCEEDED)
+    except ValueError as e:
+        print(e)
     except KeyboardInterrupt:
         print(KEYBOARD_INTERRUPT)
     except Exception as e:
@@ -124,4 +137,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    start_tool_demo()
