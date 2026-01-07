@@ -2,10 +2,8 @@
 
 import math
 
-Values = float | int
 
-
-def mean(values: list[Values]) -> Values:
+def mean(values: list[float | int]) -> float | int:
     """Calculate the mean of the list of values.
 
     Args:
@@ -23,7 +21,7 @@ def mean(values: list[Values]) -> Values:
     return sum(values) / len(values)
 
 
-def variance(values: list[Values]) -> Values:
+def variance(values: list[float | int]) -> float | int:
     """Calculate the variance of the list of values.
 
     Args:
@@ -42,7 +40,7 @@ def variance(values: list[Values]) -> Values:
     return sum((list_a - mu) ** 2 for list_a in values) / len(values)
 
 
-def standard_deviation(values: list[Values]) -> Values:
+def standard_deviation(values: list[float | int]) -> float | int:
     """Calculate the standard deviation of the list of values.
 
     Args:
@@ -60,7 +58,7 @@ def standard_deviation(values: list[Values]) -> Values:
     return math.sqrt(variance(values))
 
 
-def covariance(list_a: list[Values], list_b: list[Values]) -> Values:
+def covariance(list_a: list[float | int], list_b: list[float | int]) -> float | int:
     """Calculate the covariance between two list of values.
 
     Args:
@@ -80,7 +78,7 @@ def covariance(list_a: list[Values], list_b: list[Values]) -> Values:
     return sum((a - mx) * (b - my) for a, b in zip(list_a, list_b)) / len(list_a)
 
 
-def correlation(list_a: list[Values], list_b: list[Values]) -> Values:
+def correlation(list_a: list[float | int], list_b: list[float | int]) -> float | int:
     """Calculate the correlation between two list of values.
 
     Args:

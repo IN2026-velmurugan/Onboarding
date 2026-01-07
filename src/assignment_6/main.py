@@ -7,7 +7,22 @@ from src.assignment_6.TechFellowTools.data_tools import read_csv
 from src.assignment_6.TechFellowTools.math_tools import matrix_operations as mo
 from src.assignment_6.TechFellowTools.string_tools.string_transformations import compress_string
 
-# Constants
+ERROR_FILE_OPERATION = "File error : {}"
+ERROR_INVALID_OPERATION = "Invalid operation : {}"
+
+HEADER_CSV = "\n--- CSV Data Tools Demo ---"
+HEADER_MATH = "\n--- Math Utilities Demo ---"
+HEADER_MATRIX = "\n--- Matrix Operations Demo ---"
+HEADER_STRING = "\n--- String Utilities Demo ---"
+
+KEYBOARD_INTERRUPT = "Exiting the program !!!"
+
+LABEL_COMPRESSED = "Compressed String:"
+LABEL_CSV_CONTENT = "CSV Content:"
+LABEL_MATRIX_ADD = "Matrix Addition:"
+LABEL_MATRIX_MUL = "Matrix Multiplication:"
+LABEL_MEAN = "Mean:"
+
 MENU_TEXT = """
 === TechFellowTools Demo Console ===
 1. Math Utilities (Mean)
@@ -17,32 +32,18 @@ MENU_TEXT = """
 0. Exit
 """
 
-HEADER_MATH = "\n--- Math Utilities Demo ---"
-HEADER_MATRIX = "\n--- Matrix Operations Demo ---"
-HEADER_STRING = "\n--- String Utilities Demo ---"
-HEADER_CSV = "\n--- CSV Data Tools Demo ---"
+MSG_EXIT = "Exiting TechFellowTools Demo. Goodbye!"
+MSG_INVALID_CHOICE = "Invalid choice. Please select 1–5."
 
-PROMPT_MENU_CHOICE = "Enter your choice: "
-PROMPT_NUMBERS = "Enter numbers separated by space: "
+PROMPT_CSV_PATH = "Enter CSV file path: "
 PROMPT_MATRIX_A_INFO = "Enter values for 2x2 Matrix A (row-wise):"
 PROMPT_MATRIX_A_VALUES = "A (4 values): "
 PROMPT_MATRIX_B_INFO = "Enter values for 2x2 Matrix B (row-wise):"
 PROMPT_MATRIX_B_VALUES = "B (4 values): "
+PROMPT_MENU_CHOICE = "Enter your choice: "
+PROMPT_NUMBERS = "Enter numbers separated by space: "
 PROMPT_STRING = "Enter a string to compress: "
-PROMPT_CSV_PATH = "Enter CSV file path: "
 
-LABEL_MEAN = "Mean:"
-LABEL_MATRIX_ADD = "Matrix Addition:"
-LABEL_MATRIX_MUL = "Matrix Multiplication:"
-LABEL_COMPRESSED = "Compressed String:"
-LABEL_CSV_CONTENT = "CSV Content:"
-
-MSG_EXIT = "Exiting TechFellowTools Demo. Goodbye!"
-MSG_INVALID_CHOICE = "Invalid choice. Please select 1–5."
-KEYBOARD_INTERRUPT = "Exiting the program !!!"
-
-ERROR_INVALID_OPERATION = "Invalid operation : {}"
-ERROR_FILE_OPERATION = "File error : {}"
 UNKNOWN_ERROR = "Unknown error occurred in the application shutting down. {}"
 
 

@@ -42,7 +42,7 @@ def most_common_word(sentence: str) -> str:
     return max(freq, key=lambda k: freq[k])
 
 
-def lexical_diversity(sentence: str) -> float:
+def calculate_lexical_diversity(sentence: str) -> float:
     """Calculate the lexical diversity of a given of the sentence.
 
     Args:
@@ -79,7 +79,7 @@ def count_sentences(sentence: str) -> int:
     return len(re.findall(r"[.!?](?:\s|$)", sentence))
 
 
-def ngram_frequency(sentence: str, word_count: int = 1) -> dict[str, int]:
+def get_ngram_count(sentence: str, word_count: int = 1) -> dict[str, int]:
     """Calculate the frequency count of n-grams within a given sentence.
 
     Args:

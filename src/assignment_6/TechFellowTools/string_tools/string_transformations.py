@@ -19,7 +19,7 @@ def reverse_words(sentence: str) -> str:
     return " ".join(word[::-1] for word in sentence.split())
 
 
-def camel_to_snake(sentence: str) -> str:
+def convert_camel_to_snake(sentence: str) -> str:
     """Convert the camel case to snake case.
 
     Args:
@@ -63,7 +63,7 @@ def remove_punctuation(sentence: str) -> str:
     )
 
 
-def title_case(sentence: str) -> str:
+def convert_to_title_case(sentence: str) -> str:
     """Convert the given sentence to title case.
 
     Args:
