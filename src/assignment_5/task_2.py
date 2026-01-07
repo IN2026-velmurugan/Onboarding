@@ -60,8 +60,8 @@ def extract_link(url: str) -> dict[str, str]:
         return content
 
 
-def main():
-    """Start the script."""
+def start_scrapping():
+    """Start the script for scrapping."""
     count = 0
     while count < 5:
         try:
@@ -81,6 +81,6 @@ def main():
 
 if __name__ == "__main__":
     try:
-        main()
+        start_scrapping()
     except KeyboardInterrupt:
         print("Program inputted shutting down the application.")
