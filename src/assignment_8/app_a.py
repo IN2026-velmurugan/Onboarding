@@ -6,10 +6,10 @@ import click  # type: ignore
 @click.command()
 @click.option("--name", prompt="Your name")
 def hello(name: str) -> None:
-    """Display the string in the console.
+    """Print a greeting to console.
 
     Args:
-        name: Content to be displayed.
+        name: Name to greet.
     """
     click.echo(f"Hello {name}")
 

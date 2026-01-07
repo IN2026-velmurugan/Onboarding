@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Unit Converter CLI using Click 8.0 features."""
 
 import click  # type: ignore
@@ -9,7 +10,7 @@ UNITS = {"km": 1000.0, "hm": 100.0, "dam": 10.0, "m": 1.0, "dm": 0.1, "cm": 0.01
 # Shell completion for unit names
 def unit_completion(ctx: click.Context, param: click.Parameter, incomplete: str) -> list[str]:
     """Provide shell completion for unit names."""
-    return [unit for unit in UNITS if unit.startswith(incomplete)]
+    return [unit for unit in UNITS if unit.startswith(incomplete.lower())]
 
 
 @click.command()
@@ -17,24 +18,28 @@ def unit_completion(ctx: click.Context, param: click.Parameter, incomplete: str)
 @click.argument("from_unit", type=click.STRING, shell_complete=unit_completion)
 @click.argument("to_unit", type=click.STRING, shell_complete=unit_completion)
 def convert(value: float, from_unit: str, to_unit: str) -> None:
-    """Converts between metric length units.
+    """Convert a numeric value between metric length units.
 
-    Example:
-        python app_b.py 5 km m
+    Args:
+        value: Value to be converted.
+        from_unit: The source unit.
+        to_unit: The target unit.
+
+    Raises:
+        click.BadParameter: When unsupported unit is used.
     """
+    from_unit = from_unit.lower()
     to_unit = to_unit.lower()
 
     if from_unit not in UNITS:
-        click.echo(
-            f"[INFO]: Unsupported 'from' unit: {from_unit}.Only metric length units are supported."
+        raise click.BadParameter(
+            f"Unsupported 'from' unit: {from_unit}.Only metric length units are supported."
         )
-        return
 
     if to_unit not in UNITS:
-        click.echo(
-            f"[INFO]: Unsupported 'to' unit: {to_unit}Only metric length units are supported."
+        raise click.BadParameter(
+            f"Unsupported 'to' unit: {to_unit}Only metric length units are supported."
         )
-        return
 
     try:
         converted = (value * UNITS[from_unit]) / UNITS[to_unit]

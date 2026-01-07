@@ -3,7 +3,7 @@
 This assignment focuses primarily on creating venvs' to resolve the dependency errors and how poetry can be used to do the same efficiently.
 
 ### Task 1 & Task 2
-- Implemented two simple python scripts one to depend on click 7.0 and the other to depend on click 8.0
+- Implemented two simple Python scripts one to depend on click 7.0 and the other to depend on click 8.0
 - When using the global environment the conflicts arises for `app_b` as it requires click 8.0
 - When upgraded using `pip --upgrade` the `app_a` faced the conflicts.
 - In order to overcome this issue Python provides a way to overcome the issue by providing the virtual environments.
@@ -19,8 +19,8 @@ This assignment focuses primarily on creating venvs' to resolve the dependency e
 - In order to overcome the error creating a separate environment is suggested.
 - The traditional method using `pip` will throw error because it supports minimal Dependency resolution but `poetry` supports full resolution.
 - The poetry also locks the known good versions of the dependency in the lock file.
-- The poetry also treats python version itself as an dependency.
-- To change the python version for the environment I used `poetry env use <Python38.exe_path>`
+- The poetry also treats Python version itself as a dependency.
+- To change the Python version for the environment I used `poetry env use <Python38.exe_path>`
 - After this the `poetry add pandas==1.1.0 numpy==1.19.0 matplotlib==3.3.0` can be executed successfully to add the dependency for the environment.
 - Now this resolves the full dependency graph and makes the script executable only in the newly created environment.
 
@@ -28,5 +28,5 @@ This assignment focuses primarily on creating venvs' to resolve the dependency e
 ```
     python -m venv venv_app_a
     venv_app_a\Scripts\activate
-    ython -m pip install click==7.0 (8.0 for app_b)
+    python -m pip install click==7.0 (8.0 for app_b)
 ```

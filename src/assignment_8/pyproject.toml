@@ -12,6 +12,14 @@ pandas = "1.1.0"
 numpy = "1.19.0"
 matplotlib = "3.3.0"
 
+[[tool.mypy.overrides]]
+module = [
+  "matplotlib.*",
+  "numpy.*",
+  "pandas.*",
+]
+ignore_missing_imports = true
+
 [tool.mypy]
 ignore_missing_imports = true
 
