@@ -1,13 +1,28 @@
-"""Module contains the function to scrap the website for link and it's text."""
+"""Function to scrap the website for link and it's text."""
 
-from typing import Dict
+from typing import Iterator
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 
 
-def extract_link(url: str) -> Dict[str, str]:
-    """Scraps the link and text from the given URL.
+def is_valid_link(tag: Tag) -> bool:
+    """Verify whether the link doesn't start with wiki.
+
+    Args:
+        tag: a tag with attributes.
+
+    Returns:
+        True if the link exists and doesn't start with wiki.
+    """
+    href = tag.get("href")
+    return (
+        isinstance(href, str) and not href.startswith("/wiki/") and bool(tag.get_text(strip=True))
+    )
+
+
+def extract_link(url: str) -> dict[str, str]:
+    """Scrap the link and text from the given URL.
 
     Args:
         url: URL to be scrapped.
@@ -15,30 +30,57 @@ def extract_link(url: str) -> Dict[str, str]:
     Returns:
         Text mapped to the link as dictionary.
     """
-    page = requests.get(url)
-    soup = BeautifulSoup(page.content, "html.parser")
-    a_tag_comp = [tag for tag in soup.find_all("a")]
-    filtered = [
-        tag
-        for tag in a_tag_comp
-        if tag.get("href")
-        and isinstance(tag.get("href"), str)
-        and not tag.get("href").startswith("/wiki/")  # type: ignore
-    ]
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
 
-    filtered_string = [tag.string for tag in filtered]
-    filtered_link = [tag["href"] for tag in filtered]
-    link_map: Dict[str, str] = {
-        str(filtered_string[i]): str(filtered_link[i])
-        for i in range(len(filtered_link))
-        if filtered_string[i]
-    }
+        soup = BeautifulSoup(response.content, "html.parser")
 
-    return link_map
+        valid_links: Iterator[Tag] = filter(
+            is_valid_link,
+            soup.find_all("a"),
+        )
+
+        content: dict[str, str] = dict(
+            map(
+                lambda tag: (
+                    tag.get_text(strip=True),
+                    str(tag["href"]),
+                ),
+                valid_links,
+            )
+        )
+    except requests.exceptions.HTTPError as e:
+        raise RuntimeError("Error occurred at client/server") from e
+    except requests.exceptions.RequestException as e:
+        raise RuntimeError(f"Network error while fetching {url}") from e
+    except KeyError as e:
+        raise RuntimeError("Anchor tag missing href attribute") from e
+    else:
+        return content
+
+
+def start_scrapping():
+    """Start the script for scrapping."""
+    count = 0
+    while count < 5:
+        try:
+            url = input("Enter the URL to scrap the link : ").replace('"', "")
+            if not url:
+                raise ValueError("Cannot scrap the empty URL!!!")
+            link_map: dict[str, str] = extract_link(url)
+            for k in link_map:
+                print(f"Text : {k} & Link : {link_map.get(k)}")
+            return
+        except ValueError as e:
+            print(f"Application error : {e}")
+        except RuntimeError as e:
+            print(f"Error while scrapping the site : {e}")
+        count += 1
 
 
 if __name__ == "__main__":
-    url = input("Enter the URL to scrap the link : ").replace('"', "")
-    link_map: Dict[str, str] = extract_link(url)
-    for k in link_map:
-        print(f"Text : {k} & Link : {link_map.get(k)}")
+    try:
+        start_scrapping()
+    except KeyboardInterrupt:
+        print("Program inputted shutting down the application.")

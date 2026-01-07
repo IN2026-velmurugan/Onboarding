@@ -1,10 +1,10 @@
-"""Module contains methods to analyse the JSON file to extract the prime numbers & their square."""
+"""Function to analyse the JSON file to extract the prime numbers & their square."""
 
 import json
 import math
 import random
 from pathlib import Path
-from typing import Any, Dict, List, Set
+from typing import Any
 
 from src.assignment_3.task_4 import json_analyzer
 
@@ -12,7 +12,7 @@ PATH = Path("") / "src" / "assignment_5" / "data.json"
 
 
 def is_prime(number: int) -> bool:
-    """Checks if the number is prime.
+    """Check if the number is prime.
 
     Args:
         number: The number to be checked for prime.
@@ -22,25 +22,19 @@ def is_prime(number: int) -> bool:
     """
     if number < 2:
         return False
-    for i in range(2, int(math.sqrt(number)) + 1):
-        if number % i == 0:
+    if number in (2, 3):
+        return True
+    if number % 2 == 0 or number % 3 == 0:
+        return False
+
+    for i in range(5, math.isqrt(number) + 1, 6):
+        if number % i == 0 or number % (i + 2) == 0:
             return False
     return True
 
 
-def read_json() -> List[Dict[str, Any]]:
-    """Reads the json file and converts it to list of dictionaries.
-
-    Returns:
-        Returns list of dictionaries.
-    """
-    with open(PATH.absolute(), "r") as file:
-        data = json.load(file)
-    return data
-
-
-def list_with_square_of_primes(data: List[Dict[str, Any]]) -> List[int]:
-    """Extracts the square of numbers whose "value" is prime.
+def get_square_of_primes(data: list[dict[str, Any]]) -> list[int]:
+    """Extract the square of numbers whose "value" is prime.
 
     Args:
         data: JSON data.
@@ -48,29 +42,39 @@ def list_with_square_of_primes(data: List[Dict[str, Any]]) -> List[int]:
     Returns:
         List of square of prime numbers from the JSON.
     """
-    return [dictionary["value"] ** 2 for dictionary in data if is_prime(dictionary["value"])]
+    return list(
+        map(
+            lambda d: d["value"] ** 2,
+            filter(lambda d: "value" in d and is_prime(d["value"]), data),
+        )
+    )
 
 
-def set_with_unique_squared_values(squared_list: List[int]) -> Set[int]:
-    """Extracts unique square numbers from the list of square numbers.
+def filter_unique_values(squared_list: list[int]) -> set[int]:
+    """Extract unique square numbers from the list of square numbers.
 
     Args:
         squared_list: List of square numbers with duplicate values.
 
     Returns:
-        Set of squared numbers from the list.
+        set of squared numbers from the list.
     """
-    return {num for num in squared_list}
+    return set(squared_list)
+
+
+def seed_json() -> None:
+    """Seed JSON value to the provided path."""
+    if not PATH.exists() or PATH.stat().st_size == 0:
+        data = [{"id": i, "value": random.randint(1, 100)} for i in range(1, 10001)]
+        with open(PATH.absolute(), "w", encoding="utf-8") as json_file:
+            json.dump(data, json_file)
 
 
 if __name__ == "__main__":
-    if not PATH.exists():
-        data = [{"id": i, "value": random.randint(1, 100)} for i in range(1, 10001)]
-        with open(PATH.absolute(), "w") as json_file:
-            json.dump(data, json_file)
+    seed_json()
 
     json_data = json_analyzer(str(PATH.absolute()))
-    square_of_primes = list_with_square_of_primes(json_data)
-    unique_square_of_primes = set_with_unique_squared_values(square_of_primes)
+    square_of_primes = get_square_of_primes(json_data)
+    unique_square_of_primes = filter_unique_values(square_of_primes)
     print(square_of_primes)
     print(unique_square_of_primes)
