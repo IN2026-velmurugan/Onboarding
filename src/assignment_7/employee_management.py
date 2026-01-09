@@ -3,47 +3,58 @@
 import logging
 from pathlib import Path
 
-from src.assignment_7.constants import (
-    CSV_FORMAT_INFO,
-    DATE_WORKDAY_RESULT,
-    DEVELOPER_MENTEES_HEADER,
-    DEVELOPER_NO_MENTEES,
-    DISPLAY_MENU,
-    EMPLOYEE_ALREADY_EXISTS,
-    EMPLOYEE_CREATED,
-    EMPLOYEE_ID_NOT_FOUND,
-    EMPLOYEE_NAME_EMPTY,
-    EMPLOYEE_POSITION_EMPTY,
-    ENTER_DATE,
-    ENTER_DEVELOPER_ID,
-    ENTER_DISPLAY_CHOICE,
-    ENTER_EMPLOYEE_ID_CREATE,
-    ENTER_EMPLOYEE_ID_EDIT,
-    ENTER_EMPLOYEE_NAME,
-    ENTER_EMPLOYEE_POSITION,
-    ENTER_EMPLOYEE_SALARY,
-    ENTER_INTERN_ID,
-    ENTER_NEW_SALARY,
-    ID_SHOULD_BE_POSITIVE,
-    INTERN_MENTOR_INFO,
-    INTERN_NO_MENTOR,
-    INVALID_DEVELOPER_ID,
-    INVALID_DISPLAY_CHOICE,
-    INVALID_EMPLOYEE_POSITION,
-    INVALID_EMPLOYEE_POSITION_INPUT,
-    INVALID_GENERIC_INPUT,
-    INVALID_ID_SALARY,
-    INVALID_INTERN_ID,
-    INVALID_STRING_FORMAT,
-    MAIN_MENU,
-    MENTOR_ASSIGNED,
-    NEGATIVE_ID_ERROR,
-    SALARY_UPDATED_SUCCESS,
-)
 from src.assignment_7.employee import Employee
 from src.assignment_7.employee_position import Developer, Intern, Manager
 
+CSV_FORMAT_INFO = (
+    "\nEnter the employee data as comma-separated values in the format:\n"
+    "Employee ID,Name,Position,salary"
+)
+
+DATE_WORKDAY_RESULT = "{} is a weekday: {}"
+DEVELOPER_MENTEES_HEADER = "Mentees of {}:"
+DEVELOPER_NO_MENTEES = "{} has no mentees."
+
+DISPLAY_MENU = """Employee details.
+    1. To display details of all employees.
+    2. To display details of Developers.
+    3. To display details of Interns."""
+
+EMPLOYEE_ALREADY_EXISTS = "Employee already exist."
+EMPLOYEE_CREATED = "Employee created successfully."
+EMPLOYEE_CREATED_SUCCESS = "Employee created successfully."
+EMPLOYEE_ID_NOT_FOUND = "Employee ID doesn't exist."
+EMPLOYEE_NAME_EMPTY = "Employee name can not be empty."
+EMPLOYEE_POSITION_EMPTY = "Employee position cannot be empty."
+ENTER_DATE = "\nEnter the date in YYYY-MM-DD format to check weekday: "
+ENTER_DEVELOPER_ID = "Enter developer ID: "
+ENTER_DISPLAY_CHOICE = "Enter your choice."
+ENTER_EMPLOYEE_ID_CREATE = "\nEnter the employee ID: "
+ENTER_EMPLOYEE_ID_EDIT = "\nEnter the employee ID to edit the salary: "
+ENTER_EMPLOYEE_NAME = "Enter the name of the employee: "
+ENTER_EMPLOYEE_POSITION = "Enter the position of the employee: "
+ENTER_EMPLOYEE_SALARY = "Enter the salary of the employee: "
+ENTER_INTERN_ID = "Enter intern ID: "
+ENTER_NEW_SALARY = "Enter the new salary: "
+ID_SHOULD_BE_POSITIVE = "ID should be positive."
+INVALID_DEVELOPER_ID = "Invalid developer ID."
+INVALID_DISPLAY_CHOICE = "Enter a valid choice."
+INVALID_EMPLOYEE_POSITION = "Invalid employee position: {}"
+INVALID_EMPLOYEE_POSITION_INPUT = "Invalid position for the employee."
+INVALID_GENERIC_INPUT = "Invalid input. {}"
+INVALID_ID_SALARY = "Invalid ID or salary, ID and salary must be integer."
+INVALID_INTERN_ID = "Invalid intern ID."
+INVALID_STRING_FORMAT = "The input does not match the format mentioned."
+INTERN_MENTOR_INFO = "{}'s mentor is {}."
+INTERN_NO_MENTOR = "{} has no mentor assigned."
+
 LOGGER = logging.getLogger(__name__)
+
+MENTOR_ASSIGNED = "{} is now mentored by {}."
+NEGATIVE_ID_ERROR = "ID can not be a negative number."
+NEGATIVE_SALARY_ERROR = "Salary can not be a negative number."
+SALARY_SHOULD_BE_POSITIVE = "Salary should be a positive number."
+SALARY_UPDATED_SUCCESS = "Salary updated successfully."
 
 
 def create_employee_from_string(str_input: str) -> Employee:
@@ -83,16 +94,6 @@ def create_employee_from_string(str_input: str) -> Employee:
             return Intern(employee_id, name, salary)
 
         raise ValueError(INVALID_EMPLOYEE_POSITION.format(position))
-
-
-def menu() -> None:
-    """Display the main menu of the Employee Management System."""
-    print(MAIN_MENU)
-
-
-def display_menu() -> None:
-    """Display employee display options."""
-    print(DISPLAY_MENU)
 
 
 def add_employee() -> None:
@@ -175,7 +176,7 @@ def update_employee_salary() -> None:
 def display_all_employee() -> None:
     """Display employees based on user-selected criteria."""
     try:
-        display_menu()
+        print(DISPLAY_MENU)
         display_choice = int(input(ENTER_DISPLAY_CHOICE))
         if display_choice not in range(1, 4):
             raise ValueError
@@ -222,7 +223,7 @@ def assign_mentor() -> None:
         LOGGER.error(str(error))
 
 
-def show_intern_mentor() -> None:
+def display_intern_mentor() -> None:
     """Display mentor of a given intern."""
     try:
         intern_id = int(input(ENTER_INTERN_ID))
@@ -242,7 +243,7 @@ def show_intern_mentor() -> None:
         LOGGER.error(INVALID_GENERIC_INPUT)
 
 
-def show_developer_mentees() -> None:
+def display_developer_mentees() -> None:
     """Display all mentees of a developer."""
     try:
         developer_id = int(input(ENTER_DEVELOPER_ID))
