@@ -23,7 +23,7 @@ def word_frequency(sentence: str) -> dict[str, int]:
     return dict(Counter(words))
 
 
-def find_most_common_word(sentence: str) -> str:
+def most_common_word(sentence: str) -> str:
     """Find the most repeated word from the sentence.
 
     Args:
