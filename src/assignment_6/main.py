@@ -95,7 +95,7 @@ menu_action = {
 }
 
 
-def start_tool_demo() -> None:
+def run_tool() -> None:
     """Main menu operation to demonstrate the the `TechFellowTools` package."""
     choice = -1
     count = 0
@@ -137,4 +137,4 @@ def start_tool_demo() -> None:
 
 
 if __name__ == "__main__":
-    start_tool_demo()
+    run_tool()
