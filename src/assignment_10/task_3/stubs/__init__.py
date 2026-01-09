@@ -1,0 +1,1 @@
+"""Message demo stubs."""
