@@ -4,7 +4,7 @@ import warnings
 
 import grpc
 
-from . import message_pb2 as message__pb2
+from src.task_3.stubs import message_pb2 as message__pb2
 
 GRPC_GENERATED_VERSION = "1.76.0"
 GRPC_VERSION = grpc.__version__

@@ -1,11 +1,16 @@
 """Configure server for the MessageServicer."""
 
+import functools
 import logging
 from concurrent import futures
 
+import click
 import grpc
-
-from . import MessageServicer, add_MessageServicer_to_server, message_pb2
+from src.task_3.stubs import message_pb2  # type: ignore
+from src.task_3.stubs.message_pb2_grpc import (  # type: ignore
+    MessageServicer,
+    add_MessageServicer_to_server,
+)
 
 LOGGER = logging.getLogger(__name__)
 
@@ -33,6 +38,7 @@ def log_request(func):
         func: The request handler function to wrap.
     """
 
+    @functools.wraps(func)
     def wrapper(self, request, context):
         """Wrapper for SendMessage."""
         LOGGER.info(
@@ -83,7 +89,11 @@ class Message(MessageServicer):
             yield response
 
 
-def start_server():
+@click.command(
+    help="Start the gRPC message server.",
+)
+@click.help_option("-h", "--help", help="To show the help message.")
+def start_server() -> None:
     """Start the gRPC server and register the service with the service registry."""
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     add_MessageServicer_to_server(

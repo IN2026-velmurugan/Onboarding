@@ -1,5 +1,6 @@
 """Script demonstrating the cli command."""
 
+import functools
 import time
 
 import click
@@ -12,6 +13,7 @@ def log_execution_time(func):
         func: The function to be timed.
     """
 
+    @functools.wraps(func)
     def wrapper(*args, **kwargs):
         start_time = time.perf_counter()
         func(*args, **kwargs)
@@ -21,9 +23,14 @@ def log_execution_time(func):
     return wrapper
 
 
-@click.command()
-@click.option("--count", default=1, help="Number of times the words must be printed.")
-@click.argument("message")
+@click.command(
+    help="""Examples:\n
+        $ python task_1.py --count 3 HelloWorld\n
+        $ python task_1.py --count 3 "Hello World"\n"""
+)
+@click.option("--count", default=1, type=int, help="Number of times the words must be printed.")
+@click.argument("message", type=str)
+@click.help_option("-h", "--help", help="To show the help message.")
 @log_execution_time
 def echo_message(count, message) -> None:
     """CLI command to display the message `count` times on the console.

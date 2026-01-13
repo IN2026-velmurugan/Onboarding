@@ -7,7 +7,7 @@ import abc
 import collections.abc
 import grpc
 import grpc.aio
-from . import message_pb2
+from src.task_3.stubs import message_pb2
 import typing
 
 _T = typing.TypeVar("_T")

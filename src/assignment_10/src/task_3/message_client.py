@@ -1,11 +1,11 @@
 """Client that demonstrates the server communication."""
 
 import grpc
+from src.task_3.stubs.message_pb2 import MessageRequest  # type: ignore
+from src.task_3.stubs.message_pb2_grpc import MessageStub  # type: ignore
 
-from . import MessageRequest, MessageStub
 
-
-def repeat_message_grpc(count: int, message: str):
+def repeat_message_grpc(count: int, message: str) -> None:
     """Create channel and send the message to the server."""
     with grpc.insecure_channel("localhost:50051") as channel:
         stub = MessageStub(channel)
