@@ -18,8 +18,7 @@ LOGGER = logging.getLogger(__name__)
 def initialise_logger() -> None:
     """Configure and initialize the application logger.
 
-    Set up console and file handlers with appropriate log levels
-    and formatting.
+    Set up stream handlers with appropriate log levels.
     """
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.DEBUG)

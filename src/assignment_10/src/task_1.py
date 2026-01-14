@@ -15,6 +15,7 @@ def log_execution_time(func):
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
+        """Wrapper for the function to be timed."""
         start_time = time.perf_counter()
         func(*args, **kwargs)
         end_time = time.perf_counter()
