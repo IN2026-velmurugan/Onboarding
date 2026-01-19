@@ -59,7 +59,9 @@ def remove_punctuation(sentence: str) -> str:
         raise ValueError("Sentence must not be empty")
 
     return "".join(
-        char for char in sentence if char in range(65, 91) or char in range(97, 123) or char == " "
+        char
+        for char in sentence
+        if ord(char) in range(65, 91) or ord(char) in range(97, 123) or char == " "
     )
 
 
