@@ -19,7 +19,7 @@ click = "^8.3.1"
 [tool.poetry.scripts]
 echo-message = "src.task_1:echo_message"
 echo-message-parallel = "src.task_2:echo_message"
-repeat-message = "src.task_4:repeat_message"
+emit-message = "src.task_4:repeat_message"
 start-server = "src.task_3.message_server:start_server"
 
 [build-system]

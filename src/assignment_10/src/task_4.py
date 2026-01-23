@@ -12,13 +12,30 @@ from src.task_3.message_client import repeat_message_grpc  # type: ignore
 )
 @click.option(
     "--message",
+    "-m",
+    prompt=True,
+    prompt_required=True,
     type=str,
     default="!!!",
     help="Message to be repeated. Use double quotes on Windows if the message contains spaces.",
 )
-@click.option("--count", type=int, default=1, help="Number of times the words must be printed.")
 @click.option(
-    "--use-grpc", is_flag=True, type=bool, help="Sends the message and count to the gRPC server."
+    "--count",
+    "-c",
+    prompt=True,
+    prompt_required=True,
+    type=int,
+    default=1,
+    help="Number of times the words must be printed.",
+)
+@click.option(
+    "--use-grpc",
+    "-g",
+    prompt=True,
+    prompt_required=True,
+    is_flag=True,
+    type=bool,
+    help="Sends the message and count to the gRPC server.",
 )
 @click.help_option("-h", "--help", help="To show the help message.")
 def repeat_message(count: int, message: str, use_grpc: bool) -> None:
