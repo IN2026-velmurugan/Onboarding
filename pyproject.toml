@@ -19,6 +19,12 @@ module = [
   "matplotlib.*",
   "numpy.*",
   "pandas.*",
+  "ni_measurement_plugin_sdk_service.*",
+  "ni.measurementlink.*",
+  "ni_grpc_extensions.*",
+  "nidcpower.*",
+  "hightime",
+  "_helpers",
 ]
 ignore_missing_imports = true
 
@@ -28,6 +34,8 @@ black = "^24.3.0"
 mypy = "^1.5.1"
 ni-python-styleguide = "^0.4.7"
 setuptools = "^80.9.0"
+types-grpcio = ">=1.0"
+types-protobuf = "^4.24.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.4.0"
