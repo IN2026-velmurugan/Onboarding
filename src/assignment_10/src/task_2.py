@@ -48,15 +48,17 @@ def echo_message_implementation(count: int, message: str) -> None:
             click.echo(f.result())
 
 
+@log_execution_time
 @click.command(
     help="""Examples:\n
-        $ python task_1.py --count 3 HelloWorld\n
+        $ python task_1.py -c 3 HelloWorld\n
         $ python task_1.py --count 3 "Hello World"\n"""
 )
-@click.option("--count", type=int, default=1, help="Number of times the words must be printed.")
+@click.option(
+    "--count", "-c", type=int, default=1, help="Number of times the words must be printed."
+)
 @click.argument("message", type=str)
 @click.help_option("-h", "--help", help="To show the help message.")
-@log_execution_time
 def echo_message(count: int, message: str) -> None:
     """CLI command to display the message `count` times on the console.
 

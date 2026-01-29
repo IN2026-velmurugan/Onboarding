@@ -7,7 +7,7 @@ from src.task_3.message_client import repeat_message_grpc  # type: ignore
 
 @click.command(
     help="""Examples:\n
-        $ python task_1.py --count 3 --message HelloWorld\n
+        $ python task_1.py -c 3 -m HelloWorld\n
         $ python task_1.py --count 3 --message "Hello World"\n"""
 )
 @click.option(
