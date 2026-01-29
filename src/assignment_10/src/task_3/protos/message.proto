@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+// The request containing the message.
+message MessageRequest {
+    string message = 1;
+    int32 count = 2;
+}
+
+// The response containing the reply.
+message MessageResponse{
+    string reply = 1;
+}
+
+// The message service definition.
+service Message{
+    // Send message
+    rpc SendMessage (MessageRequest) returns (stream MessageResponse);
+}
