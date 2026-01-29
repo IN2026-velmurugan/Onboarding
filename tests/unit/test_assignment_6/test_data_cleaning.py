@@ -1,3 +1,5 @@
+"""Tests for data cleaning functions in TechFellowTools data_tools module."""
+
 import pytest
 from src.assignment_6.TechFellowTools.data_tools.data_cleaning import (
     cast_to_float,

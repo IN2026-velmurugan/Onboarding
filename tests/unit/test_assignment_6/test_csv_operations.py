@@ -1,3 +1,5 @@
+"""Tests for CSV operations in TechFellowTools data_tools module."""
+
 import csv
 from pathlib import Path
 
@@ -10,7 +12,7 @@ from src.assignment_6.TechFellowTools.data_tools.csv_operations import (
     write_csv,
 )
 
-CSV_PATH = "logs_output/log.txt"
+CSV_PATH = r"sample.csv"
 
 
 @pytest.fixture

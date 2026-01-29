@@ -1,3 +1,5 @@
+"""Tests for statistical operations in TechFellowTools math_tools module."""
+
 import pytest
 from src.assignment_6.TechFellowTools.math_tools.statistical_operations import (
     correlation,

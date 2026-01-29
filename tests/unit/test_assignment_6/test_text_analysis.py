@@ -1,3 +1,5 @@
+"""Tests for text analysis functions in TechFellowTools string_tools module."""
+
 import pytest
 from src.assignment_6.TechFellowTools.string_tools.text_analysis import (
     calculate_lexical_diversity,
