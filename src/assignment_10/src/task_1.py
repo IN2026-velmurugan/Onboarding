@@ -1,0 +1,56 @@
+"""Script demonstrating the cli command."""
+
+import functools
+import time
+
+import click
+
+
+def log_execution_time(func):
+    """Display the time taken by the wrapper function.
+
+    Args:
+        func: The function to be timed.
+    """
+
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        """Wrapper for the function to be timed."""
+        start_time = time.perf_counter()
+        func(*args, **kwargs)
+        end_time = time.perf_counter()
+        click.echo(f"Elapsed time : {(end_time - start_time)*100 :.4f} ms.")
+
+    return wrapper
+
+
+@log_execution_time
+@click.command(
+    help="""Examples:\n
+        $ python task_1.py -c 3 HelloWorld\n
+        $ python task_1.py --count 3 "Hello World"\n"""
+)
+@click.option(
+    "--count", "-c", default=1, type=int, help="Number of times the words must be printed."
+)
+@click.argument("message", type=str)
+@click.help_option("-h", "--help", help="To show the help message.")
+def echo_message(count, message) -> None:
+    """CLI command to display the message `count` times on the console.
+
+    Args:
+        count: Number of times the message has to be displayed.
+        message: The message to be displayed.
+
+    Raises:
+        click.BadParameter: Raised when the count is less than 0.
+    """
+    if count <= 0:
+        raise click.BadParameter("Count must be greater than 0.")
+
+    for i in range(count):
+        click.echo(f"{i+1}. {message}")
+
+
+if __name__ == "__main__":
+    echo_message()

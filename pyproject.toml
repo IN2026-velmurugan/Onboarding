@@ -13,6 +13,11 @@ scikit-learn = "1.7.2"
 requests = "^2.32.5"
 types-requests = "^2.32.4.20250913"
 numpy = "<2.4.0"
+grpcio = "^1.76.0"
+grpcio-tools = "^1.76.0"
+mypy-protobuf = "^4.0.0"
+types-protobuf = "^6.32.1.20251210"
+grpc-stubs = "^1.53.0.6"
 
 [[tool.mypy.overrides]]
 module = [
@@ -35,7 +40,6 @@ mypy = "^1.5.1"
 ni-python-styleguide = "^0.4.7"
 setuptools = "^80.9.0"
 types-grpcio = ">=1.0"
-types-protobuf = "^4.24.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.4.0"
@@ -59,3 +63,9 @@ target-version = ["py310"]
 [tool.ni_python_styleguide]
 docstring_style = "google"
 type_hints_in_docstring = false
+
+[tool.ni-python-styleguide]
+extend_exclude = '.tox/,*_pb2_grpc.py,*_pb2_grpc.pyi,*_pb2.py,*_pb2.pyi'
+
+[tool.mypy]
+exclude = '(.*_pb2(_grpc)?\.pyi?)'
