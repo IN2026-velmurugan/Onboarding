@@ -1778,6 +1778,18 @@ files = [
 markers = {dev = "python_version == \"3.10\"", test = "python_full_version <= \"3.11.0a6\""}
 
 [[package]]
+name = "types-grpcio"
+version = "1.0.0.20251009"
+description = "Typing stubs for grpcio"
+optional = false
+python-versions = ">=3.9"
+groups = ["dev"]
+files = [
+    {file = "types_grpcio-1.0.0.20251009-py3-none-any.whl", hash = "sha256:112ac4312a5b0a273a4c414f7f2c7668f342990d9c6ab0f647391c36331f95ed"},
+    {file = "types_grpcio-1.0.0.20251009.tar.gz", hash = "sha256:a8f615ea7a47b31f10da028ab5258d4f1611fbd70719ca450fc0ab3fb9c62b63"},
+]
+
+[[package]]
 name = "types-protobuf"
 version = "6.32.1.20251210"
 description = "Typing stubs for protobuf"
@@ -1860,4 +1872,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "1f8b5b556561c5b33d2f51bea1973056421b7e1639522650ccf29bb8ce1c323f"
+content-hash = "6f48a9ae0dcfc68685dd8029fc185fb1ee6e141a5df92b94216177e968791c4b"
