@@ -20,15 +20,15 @@ def test__add_matrices__valid_input_matrix__returns_added_matrix():
 
 
 @pytest.mark.parametrize(
-    "input",
+    "matrix_a, matrix_b, error",
     [
-        ([[1, 2]], [[1, 2], [3, 4]]),
-        ([[1, 2, 3]], [[1, 2]]),
+        ([[1, 2]], [[1, 2], [3, 4]], ValueError),
+        ([[1, 2, 3]], [[1, 2]], ValueError),
     ],
 )
-def test__add_matrices__invalid_inputs__raised_value_error(input):
-    with pytest.raises(ValueError):
-        add_matrices(*input)
+def test__add_matrices__invalid_inputs__raised_value_error(matrix_a, matrix_b, error):
+    with pytest.raises(error):
+        add_matrices(matrix_a, matrix_b)
 
 
 @pytest.mark.parametrize(

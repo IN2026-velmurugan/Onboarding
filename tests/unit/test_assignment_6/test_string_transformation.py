@@ -38,6 +38,7 @@ def test__convert_camel_to_snake__empty_string__raises_value_error():
     "word, expected_output",
     [
         ("camelCase", "camel_case"),
+        ("HTTPServerError", "http_server_error"),
         ("snakecase", "snakecase"),
     ],
 )

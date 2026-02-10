@@ -17,6 +17,9 @@ from src.assignment_6.TechFellowTools.data_tools.data_cleaning import (
         ("12.34"),
         ("10"),
         ("-5.6"),
+        ("inf"),
+        ("-inf"),
+        ("NaN"),
     ],
 )
 def test__is_float__valid_float_string__returns_true(value):
@@ -28,6 +31,7 @@ def test__is_float__valid_float_string__returns_true(value):
     [
         ("abc"),
         (""),
+        (None),
     ],
 )
 def test__is_float__invalid_float_string__returns_false(value):
@@ -39,6 +43,7 @@ def test__is_float__invalid_float_string__returns_false(value):
     [
         ([1, None, 2, None, 3], [1, 2, 3]),
         (["a", "b", "c"], ["a", "b", "c"]),
+        (["", "", " "], []),
         ([], []),
     ],
 )

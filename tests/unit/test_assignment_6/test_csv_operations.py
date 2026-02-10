@@ -87,8 +87,8 @@ def test__read_csv__valid_file__returns_data_as_list_of_dicts(
 
 
 def test__read_csv__file_not_found__raises_file_not_found_error():
-
     file_path = Path("non_existent_file.csv")
+
     with pytest.raises(FileNotFoundError):
         read_csv(file_path)
 
@@ -101,7 +101,6 @@ def test__write_csv__valid_input__writes_data_to_csv(empty_csv_file):
     ]
 
     write_csv(filepath, rows)
-
     with filepath.open("r", newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
         written_rows = list(reader)
@@ -119,7 +118,6 @@ def test__write_csv__empty_rows__raises_index_error(empty_csv_file):
 
 def test__filter_rows__valid_values__returns_filtered_rows(sample_csv_file):
     rows = read_csv(sample_csv_file)
-
     filtered_rows = [row for row in rows if row["city"] == "Chicago"]
 
     answer = filter_rows(rows, "city", "Chicago")
@@ -133,12 +131,14 @@ def test__filter_rows__valid_values__returns_filtered_rows(sample_csv_file):
         ("sample_csv_file", "city", "texas"),
         ("sample_csv_file", "dob", "25-10-2004"),
         ("sample_csv_file_header_only", "name", "Alice"),
+        ("sample_csv_file_header_only", "", "Alice"),
+        ("sample_csv_file_header_only", None, "Alice"),
     ],
 )
 def test__filter_rows__invalid_params__returns_empty_list(fixture_name, key, value, request):
     rows = read_csv(request.getfixturevalue(fixture_name))
 
-    answer = list(filter(lambda row: row.get(key) == value, rows))
+    answer = filter_rows(rows, key, value)
 
     assert answer == []
 
@@ -153,7 +153,6 @@ def test__filter_rows__invalid_params__returns_empty_list(fixture_name, key, val
 def test__select_columns__valid_columns__returns_selected_columns(sample_csv_file, key):
     rows = read_csv(sample_csv_file)
     columns = key
-
     selected_columns = [{col: row[col] for col in columns} for row in rows]
 
     answer = select_columns(rows, columns)
@@ -165,16 +164,17 @@ def test__select_columns__valid_columns__returns_selected_columns(sample_csv_fil
     "fixture_name, key",
     [
         ("sample_csv_file", "dob"),
+        ("sample_csv_file", ""),
+        ("sample_csv_file", None),
         ("sample_csv_file_header_only", "name"),
     ],
 )
 def test__select_columns__invalid_parameters__returns_empty(fixture_name, key, request):
     rows = read_csv(request.getfixturevalue(fixture_name))
     columns = [key]
+    expected_output = [{} for _ in rows]
 
     answer = select_columns(rows, columns)
-
-    expected_output = [{} for _ in rows]
 
     assert expected_output == answer
 
@@ -182,7 +182,6 @@ def test__select_columns__invalid_parameters__returns_empty(fixture_name, key, r
 def test__sort_rows__valid_key__returns_sorted_rows(sample_csv_file):
     rows = read_csv(sample_csv_file)
     key = "age"
-
     sorted_rows = sorted(rows, key=lambda row: row[key])
 
     answer = sort_rows(rows, key)
