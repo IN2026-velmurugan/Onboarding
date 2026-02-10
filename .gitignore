@@ -165,3 +165,5 @@ src/assignment_5/data.json
 *log.txt
 .vscode/
 logs_output/
+src/RA_hands_on/nidcpower_source_dc_voltage/*.xml
+src/RA_hands_on/nidcpower_source_dc_voltage/*.xml.html
