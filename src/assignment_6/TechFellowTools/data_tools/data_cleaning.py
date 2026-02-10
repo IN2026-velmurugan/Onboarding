@@ -15,7 +15,7 @@ def is_float(value: str) -> bool:
     try:
         float(value)
         return True
-    except ValueError:
+    except Exception:
         return False
 
 
@@ -28,7 +28,12 @@ def remove_nulls(data: list[Any]) -> list[Any]:
     Returns:
         Data without `None` values.
     """
-    return list(filter(lambda x: x is not None, data))
+    return list(
+        filter(
+            lambda x: x is not None and x != "" and not (isinstance(x, str) and x.strip() == ""),
+            data,
+        )
+    )
 
 
 def remove_duplicates(data: list[Any]) -> list[Any]:

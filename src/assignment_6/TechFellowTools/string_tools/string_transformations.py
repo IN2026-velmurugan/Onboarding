@@ -1,5 +1,7 @@
 """Functions to perform the string transformations."""
 
+import re
+
 
 def reverse_words(sentence: str) -> str:
     """Reverse the words in the sentence.
@@ -34,13 +36,13 @@ def convert_camel_to_snake(sentence: str) -> str:
     if not sentence.strip():
         raise ValueError("Sentence must not be empty")
 
-    result = ""
-    for char in sentence:
-        if char.isupper():
-            result += "_" + char.lower()
-        else:
-            result += char
-    return result.lstrip("_")
+    pattern = r"(.)([A-Z][a-z]+)"
+    sentence = re.sub(pattern, r"\1_\2", sentence)
+
+    pattern = r"([a-z0-9])([A-Z])"
+    sentence = re.sub(pattern, r"\1_\2", sentence)
+
+    return sentence.lower()
 
 
 def remove_punctuation(sentence: str) -> str:
@@ -59,7 +61,9 @@ def remove_punctuation(sentence: str) -> str:
         raise ValueError("Sentence must not be empty")
 
     return "".join(
-        char for char in sentence if char in range(65, 91) or char in range(97, 123) or char == " "
+        char
+        for char in sentence
+        if ord(char) in range(65, 91) or ord(char) in range(97, 123) or char == " "
     )
 
 
